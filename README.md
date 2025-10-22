@@ -56,18 +56,18 @@
 
 #### Run remotely
            
-4. Run:
+6. Run:
      
         src/com/backend/BackendApplication.java
-             
-5. Once the backend is running, go back and run:
+
+7. Once the backend is running, go back and run:
             
         src/com/application/Application.java
                                     
-6. Run "remotely" when the option appears. 
+8. Run "remotely" when the option appears. 
                                           
 
-7. Some functions are missing which need to be restored using API calls. 
+9. Some functions are missing which need to be restored using API calls. 
              
 
 ### Features to Implement
