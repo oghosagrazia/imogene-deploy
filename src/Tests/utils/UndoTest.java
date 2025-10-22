@@ -1,11 +1,14 @@
 package Tests.utils;
 
+
 import com.application.HistoryManager;
 import com.utils.BitMapImage;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.*;
- class UndoTest {
+import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
+
+class UndoTest {
     HistoryManager dummyHistoryManager;
     BitMapImage image1;
     BitMapImage image2;
