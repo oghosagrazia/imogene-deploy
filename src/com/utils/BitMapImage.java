@@ -1,5 +1,7 @@
 package com.utils;
 
+import java.awt.*;
+
 public class BitMapImage {
     private int width;
     private int height;
@@ -58,6 +60,16 @@ public class BitMapImage {
         this.rgb = rgb;
         this.height = rgb.length;
         this.width = rgb[0].length;
+    }
+
+    public void resetToWhite(){
+        for (int i=0; i<getHeight(); i++){
+            for (int j=0; j<getWidth(); j++){
+                rgb[i][j][0] = 255;
+                rgb[i][j][1] = 255;
+                rgb[i][j][2] = 255;
+            }
+        }
     }
 
 }
