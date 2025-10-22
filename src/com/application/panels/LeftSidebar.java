@@ -5,6 +5,7 @@ import com.API.GenerationConnector;
 import com.GA.ImageGenerator;
 import com.GA.generation.RandomColorGeneration;
 import com.application.HistoryManager;
+import com.utils.BitMapImage;
 import com.utils.ImageUtils;
 
 import javax.swing.*;
@@ -40,7 +41,10 @@ public class LeftSidebar extends JPanel {
     private JButton btnHueOntoSaturation;
     private JButton btnSaturationOntoLightness;
     private JButton btnLightnessOntoHue;
+
+    // Added buttons
     private JButton undo;
+    private JButton clearToWhite;
 
     HistoryManager historyManager = new HistoryManager();
 
@@ -99,6 +103,24 @@ public class LeftSidebar extends JPanel {
                 ImageScreen.redraw();
             }
         });
+
+        clearToWhite = new JButton("Clear");
+        clearToWhite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    historyManager.addCanvas(ImageScreen.currentImage);
+                    BitMapImage clearIMG = new BitMapImage(ImageScreen.currentImageWidth, ImageScreen.currentImageHeight);
+                    clearIMG.resetToWhite();
+                    ImageScreen.currentImage = clearIMG;
+                    ImageScreen.redraw();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
 
 
         JLabel lblFilters = new JLabel("Filters");
@@ -269,6 +291,7 @@ public class LeftSidebar extends JPanel {
         add(generateColour);
         // Added Buttons
         add(undo);
+        add(clearToWhite);
 
         // Separator
         add(Box.createVerticalStrut(10));
@@ -322,6 +345,7 @@ public class LeftSidebar extends JPanel {
         btnLightnessOntoHue.setAlignmentX(Component.CENTER_ALIGNMENT);
         // Added Buttons
         undo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clearToWhite.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set all button widths to full width of the left sidebar
         generateRandom.setMaximumSize(new Dimension(Integer.MAX_VALUE, generateRandom.getPreferredSize().height));
@@ -344,6 +368,7 @@ public class LeftSidebar extends JPanel {
         btnLightnessOntoHue.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnLightnessOntoHue.getPreferredSize().height));
         // Added Buttons
         undo.setMaximumSize(new Dimension(Integer.MAX_VALUE, undo.getPreferredSize().height));
+        clearToWhite.setMaximumSize(new Dimension(Integer.MAX_VALUE, clearToWhite.getPreferredSize().height));
     }
 
     public void setRemote(boolean remote) {
@@ -351,6 +376,7 @@ public class LeftSidebar extends JPanel {
             generateRandom.setVisible(true);
             generateColour.setVisible(true);
             undo.setVisible(true);
+            clearToWhite.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(false);
             filterSmoothMedium.setVisible(false);
