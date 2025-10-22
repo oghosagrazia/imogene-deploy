@@ -25,6 +25,7 @@ public class HistoryManager {
         BitMapImage previousCanvas = undoList.getLast();
         undoList.removeLast();
 
+        // Return last image
         return previousCanvas;
     }
 }

@@ -42,10 +42,10 @@ public class LeftSidebar extends JPanel {
     private JButton btnLightnessOntoHue;
     private JButton undo;
 
+    HistoryManager historyManager = new HistoryManager();
 
     public LeftSidebar() {
         super();
-        HistoryManager historyManager = new HistoryManager();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel lblGeneration = new JLabel("Generation");
@@ -74,6 +74,7 @@ public class LeftSidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(remote) {
                     try {
+                        historyManager.addCanvas(ImageScreen.currentImage);
                         ImageScreen.currentImage = GenerationConnector.requestGeneration(GenerationConnector.RANDOM_COLOUR, ImageScreen.currentImageHeight, ImageScreen.currentImageWidth);
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -95,6 +96,7 @@ public class LeftSidebar extends JPanel {
                 } catch (Exception ex){
                     ex.printStackTrace();
                 }
+                ImageScreen.redraw();
             }
         });
 
