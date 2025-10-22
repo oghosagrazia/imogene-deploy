@@ -109,6 +109,7 @@ public class LeftSidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(remote) {
                     try {
+                        historyManager.addCanvas(ImageScreen.currentImage);
                         ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.FILTER_GRAYSCALE, ImageScreen.currentImage);
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -125,6 +126,7 @@ public class LeftSidebar extends JPanel {
         filterSmoothSoft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.8,  0.025);
                 ImageScreen.redraw();
             }
@@ -134,6 +136,7 @@ public class LeftSidebar extends JPanel {
         filterSmoothMedium.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.5, 0.0625);
                 ImageScreen.redraw();
             }
@@ -143,6 +146,7 @@ public class LeftSidebar extends JPanel {
         filterSmoothHard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.2, 0.1);
                 ImageScreen.redraw();
             }
@@ -154,6 +158,7 @@ public class LeftSidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(remote) {
                     try {
+                        historyManager.addCanvas(ImageScreen.currentImage);
                         ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.FILTER_INVERT, ImageScreen.currentImage);
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -170,6 +175,7 @@ public class LeftSidebar extends JPanel {
         redRebalance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.6, 0.2, 0.2);
                 ImageScreen.redraw();
             }
@@ -179,6 +185,7 @@ public class LeftSidebar extends JPanel {
         greenRebalance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.2, 0.6, 0.2);
                 ImageScreen.redraw();
             }
@@ -188,6 +195,7 @@ public class LeftSidebar extends JPanel {
         blueRebalance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.2, 0.2, 0.6);
                 ImageScreen.redraw();
             }
@@ -199,6 +207,7 @@ public class LeftSidebar extends JPanel {
         btnRedOntoGreen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Red", "Green");
                 ImageScreen.redraw();
             }
@@ -208,6 +217,7 @@ public class LeftSidebar extends JPanel {
         btnGreenOntoBlue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Green", "Blue");
                 ImageScreen.redraw();
             }
@@ -217,6 +227,7 @@ public class LeftSidebar extends JPanel {
         btnBlueOntoRed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Blue", "Red");
                 ImageScreen.redraw();
             }
@@ -226,6 +237,7 @@ public class LeftSidebar extends JPanel {
         btnHueOntoSaturation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Hue", "Saturation");
                 ImageScreen.redraw();
             }
@@ -235,6 +247,7 @@ public class LeftSidebar extends JPanel {
         btnSaturationOntoLightness.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Saturation", "Lightness");
                 ImageScreen.redraw();
             }
@@ -244,6 +257,7 @@ public class LeftSidebar extends JPanel {
         btnLightnessOntoHue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Lightness", "Hue");
                 ImageScreen.redraw();
             }
