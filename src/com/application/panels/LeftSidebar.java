@@ -4,6 +4,7 @@ import com.API.FilterConnector;
 import com.API.GenerationConnector;
 import com.GA.ImageGenerator;
 import com.GA.generation.RandomColorGeneration;
+import com.application.HistoryManager;
 import com.utils.ImageUtils;
 
 import javax.swing.*;
@@ -39,10 +40,12 @@ public class LeftSidebar extends JPanel {
     private JButton btnHueOntoSaturation;
     private JButton btnSaturationOntoLightness;
     private JButton btnLightnessOntoHue;
+    private JButton undo;
 
 
     public LeftSidebar() {
         super();
+        HistoryManager historyManager = new HistoryManager();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel lblGeneration = new JLabel("Generation");
@@ -52,6 +55,7 @@ public class LeftSidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(remote) {
                     try {
+                        historyManager.addCanvas(ImageScreen.currentImage);
                         ImageScreen.currentImage = GenerationConnector.requestGeneration(GenerationConnector.RANDOM_BITMAP, ImageScreen.currentImageHeight, ImageScreen.currentImageWidth);
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -79,6 +83,18 @@ public class LeftSidebar extends JPanel {
                     ImageScreen.currentImage = (new RandomColorGeneration()).generate(ImageScreen.currentImageHeight, ImageScreen.currentImageWidth).getImage();
                 }
                 ImageScreen.redraw();
+            }
+        });
+
+        undo = new JButton("Undo");
+        undo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ImageScreen.currentImage = historyManager.getLastCanvas();
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -235,6 +251,8 @@ public class LeftSidebar extends JPanel {
         add(lblGeneration);
         add(generateRandom);
         add(generateColour);
+        // Added Buttons
+        add(undo);
 
         // Separator
         add(Box.createVerticalStrut(10));
@@ -286,6 +304,8 @@ public class LeftSidebar extends JPanel {
         btnHueOntoSaturation.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSaturationOntoLightness.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnLightnessOntoHue.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Added Buttons
+        undo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set all button widths to full width of the left sidebar
         generateRandom.setMaximumSize(new Dimension(Integer.MAX_VALUE, generateRandom.getPreferredSize().height));
@@ -306,12 +326,15 @@ public class LeftSidebar extends JPanel {
         btnHueOntoSaturation.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnHueOntoSaturation.getPreferredSize().height));
         btnSaturationOntoLightness.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnSaturationOntoLightness.getPreferredSize().height));
         btnLightnessOntoHue.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnLightnessOntoHue.getPreferredSize().height));
+        // Added Buttons
+        undo.setMaximumSize(new Dimension(Integer.MAX_VALUE, undo.getPreferredSize().height));
     }
 
     public void setRemote(boolean remote) {
         if (remote) {
             generateRandom.setVisible(true);
             generateColour.setVisible(true);
+            undo.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(false);
             filterSmoothMedium.setVisible(false);
