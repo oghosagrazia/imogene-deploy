@@ -7,19 +7,19 @@ import java.awt.image.BufferedImage;
 public class DrawingPanel extends JPanel {
     private BufferedImage canvas;
 
-    public DrawingPanel(int height, int width) {
+    public DrawingPanel(int pixelWidth, int pixelHeight) {
         setLayout(new GridBagLayout());
-        if(ImageScreen.UPSCALE) {
-            width *= ImageScreen.UPSCALE_FACTOR;
-            height *= ImageScreen.UPSCALE_FACTOR;
-        }
-        this.setSize(width, height);
-        canvas = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        canvas = new BufferedImage(pixelWidth, pixelHeight, BufferedImage.TYPE_INT_RGB);
+
+        // Swing layout matches the image dimensions set.
+        setPreferredSize(new Dimension(pixelWidth, pixelHeight));
+
         clearCanvas();
     }
 
     public void setPixel(int x, int y, Color color) {
-        if (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) {
+        if (x >= 0 && x < canvas.getWidth() && y >= 0 && y < canvas.getHeight()) {
             canvas.setRGB(x, y, color.getRGB());
             repaint();
         }
