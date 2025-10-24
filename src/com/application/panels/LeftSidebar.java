@@ -53,6 +53,10 @@ public class LeftSidebar extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel lblGeneration = new JLabel("Generation");
+        
+        
+        //  Buttons  //
+        //  Generate Random Button
         generateRandom = new JButton("Generate Random");
         generateRandom.addActionListener(new ActionListener() {
             @Override
@@ -71,7 +75,8 @@ public class LeftSidebar extends JPanel {
                 ImageScreen.redraw();
             }
         });
-
+        
+        //  Generate Colour Button
         generateColour = new JButton("Generate Colour");
         generateColour.addActionListener(new ActionListener() {
             @Override
@@ -91,6 +96,7 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+        //  Undo Button
         undo = new JButton("Undo");
         undo.addActionListener(new ActionListener() {
             @Override
@@ -104,6 +110,7 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+    	// Clear Button
         clearToWhite = new JButton("Clear");
         clearToWhite.addActionListener(new ActionListener() {
             @Override
@@ -125,6 +132,8 @@ public class LeftSidebar extends JPanel {
 
         JLabel lblFilters = new JLabel("Filters");
 
+        
+        //  Grayscale Button
         filterGrayscale = new JButton("Grayscale");
         filterGrayscale.addActionListener(new ActionListener() {
             @Override
@@ -144,36 +153,60 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+        // Smoothing //
+        //  Smooth (soft) Button
         filterSmoothSoft = new JButton("Smooth (soft)");
-        filterSmoothSoft.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        filterSmoothSoft.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.FILTER_SMOOTH_SOFT, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
                 historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.8,  0.025);
-                ImageScreen.redraw();
             }
+            ImageScreen.redraw();
         });
 
+        //  Smooth (medium) Button
         filterSmoothMedium = new JButton("Smooth (medium)");
-        filterSmoothMedium.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        filterSmoothMedium.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.FILTER_SMOOTH_MEDIUM, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
                 historyManager.addCanvas(ImageScreen.currentImage);
-                ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.5, 0.0625);
-                ImageScreen.redraw();
+                ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.5,  0.0625);
             }
+            ImageScreen.redraw();
         });
 
+        //  Smooth (hard) Button
         filterSmoothHard = new JButton("Smooth (hard)");
-        filterSmoothHard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        filterSmoothHard.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.FILTER_SMOOTH_HARD, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
                 historyManager.addCanvas(ImageScreen.currentImage);
-                ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.2, 0.1);
-                ImageScreen.redraw();
+                ImageScreen.currentImage = ImageUtils.smoothFilter(ImageScreen.currentImage, 0.2,  0.1);
             }
+            ImageScreen.redraw();
         });
 
+        
+        //  Invert Button
         filterInvert = new JButton("Invert");
         filterInvert.addActionListener(new ActionListener() {
             @Override
@@ -193,36 +226,63 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+        
+        
+        // Re-balance //
+        // Red Button
         redRebalance = new JButton("Rebalance Red");
-        redRebalance.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        redRebalance.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.REBALANCE_RED, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
                 historyManager.addCanvas(ImageScreen.currentImage);
-                ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.6, 0.2, 0.2);
-                ImageScreen.redraw();
+                ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.6, 0.2, 0.2); //Change the magic numbers
             }
+        	ImageScreen.redraw();
         });
 
+        // Green Button
         greenRebalance = new JButton("Rebalance Green");
-        greenRebalance.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        greenRebalance.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.REBALANCE_GREEN, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
                 historyManager.addCanvas(ImageScreen.currentImage);
-                ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.2, 0.6, 0.2);
-                ImageScreen.redraw();
+                ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.2, 0.6, 0.2); //Change the magic numbers
             }
+        	ImageScreen.redraw();
         });
 
+        // Blue Button
         blueRebalance = new JButton("Rebalance Blue");
-        blueRebalance.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        blueRebalance.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.REBALANCE_BLUE, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
                 historyManager.addCanvas(ImageScreen.currentImage);
-                ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.2, 0.2, 0.6);
-                ImageScreen.redraw();
+                ImageScreen.currentImage = ImageUtils.rgbBalancing(ImageScreen.currentImage, 0.2, 0.2, 0.6); //Change the magic numbers
             }
+        	ImageScreen.redraw();
         });
 
+        
+        
+        
         JLabel lblProjections = new JLabel("Spectrum Projections");
 
         btnRedOntoGreen = new JButton("Red -> Green");
@@ -378,13 +438,13 @@ public class LeftSidebar extends JPanel {
             undo.setVisible(true);
             clearToWhite.setVisible(true);
             filterGrayscale.setVisible(true);
-            filterSmoothSoft.setVisible(false);
-            filterSmoothMedium.setVisible(false);
-            filterSmoothHard.setVisible(false);
+            filterSmoothSoft.setVisible(true);
+            filterSmoothMedium.setVisible(true);
+            filterSmoothHard.setVisible(true);
             filterInvert.setVisible(true);
-            redRebalance.setVisible(false);
-            greenRebalance.setVisible(false);
-            blueRebalance.setVisible(false);
+            redRebalance.setVisible(true);
+            greenRebalance.setVisible(true);
+            blueRebalance.setVisible(true);
             btnRedOntoGreen.setVisible(false);
             btnGreenOntoBlue.setVisible(false);
             btnBlueOntoRed.setVisible(false);

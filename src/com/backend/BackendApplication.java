@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 public class BackendApplication {
 
@@ -30,7 +31,7 @@ public class BackendApplication {
         server.createContext("/generate", new GenerationHandler());
         server.createContext("/filter", new FilterHandler());
 
-        server.setExecutor(null);
+        server.setExecutor(Executors.newFixedThreadPool(4));
         server.start();
 
         System.out.println("Server started on http://localhost:" + portNumber);
@@ -51,9 +52,10 @@ public class BackendApplication {
                     "</body>\n" +
                     "</html>";
             exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
+            exchange.getResponseHeaders().set("Content-Type", "text/html; charset=utf-8");
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
     }
 
@@ -112,7 +114,7 @@ public class BackendApplication {
                 String type = extractJsonValue(body, "type");
 
                 String imageString = extractJsonValue(body, "image");
-
+                
                 int[][][] rgb = Util.parse3DArray(imageString);
                 BitMapImage image = new BitMapImage(rgb);
 
@@ -121,6 +123,26 @@ public class BackendApplication {
 
                 if(type.equalsIgnoreCase("invert"))
                     image = ImageUtils.invert(image);
+                
+                if(type.equalsIgnoreCase("smoothFilterSoft"))
+                	image = ImageUtils.smoothFilter(image, 0.8, 0.025);
+                
+                if(type.equalsIgnoreCase("smoothFilterMedium"))
+                	image = ImageUtils.smoothFilter(image, 0.5, 0.0625);
+                
+                if(type.equalsIgnoreCase("smoothFilterHard"))
+                	image = ImageUtils.smoothFilter(image, 0.2, 0.1);
+
+                if(type.equalsIgnoreCase("rebalanceRed"))
+                    image = ImageUtils.rgbBalancing(image, 0.6, 0.2, 0.2);
+
+                if(type.equalsIgnoreCase("rebalanceGreen"))
+                    image = ImageUtils.rgbBalancing(image, 0.2, 0.6, 0.2);
+
+                if(type.equalsIgnoreCase("rebalanceBlue"))
+                    image = ImageUtils.rgbBalancing(image, 0.2, 0.2, 0.6);
+                
+                	
 
                 String json = Util.arrayToJson(image.getRgb());
                 exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -142,7 +164,9 @@ public class BackendApplication {
         if (start == -1) return null;
         int colon = json.indexOf(':', start);
         int firstQuote = json.indexOf('"', colon + 1);
+        if (firstQuote == -1) return null;
         int secondQuote = json.indexOf('"', firstQuote + 1);
+        if (secondQuote == -1) return null;
         return json.substring(firstQuote + 1, secondQuote);
     }
 

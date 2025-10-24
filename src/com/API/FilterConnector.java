@@ -14,6 +14,12 @@ public class FilterConnector {
 
     public static final String FILTER_GRAYSCALE = "grayscale";
     public static final String FILTER_INVERT = "invert";
+    public static final String FILTER_SMOOTH_SOFT = "smoothFilterSoft";
+    public static final String FILTER_SMOOTH_MEDIUM = "smoothFilterMedium";
+    public static final String FILTER_SMOOTH_HARD = "smoothFilterHard";
+    public static final String REBALANCE_RED = "rebalanceRed";
+    public static final String REBALANCE_GREEN = "rebalanceGreen";
+    public static final String REBALANCE_BLUE = "rebalanceBlue";
 
     public static BitMapImage requestFilter(String type, BitMapImage image) throws IOException, InterruptedException {
 
