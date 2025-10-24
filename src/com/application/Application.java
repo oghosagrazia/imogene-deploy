@@ -26,7 +26,7 @@ public class Application {
     public static void main(String[] args) {
 
         // Set up fonts to be used in the GUI
-        //FontManager.configureFonts();
+        FontManager.configureFonts();
 
         // Create and display the application window
         ApplicationWindow window = ApplicationWindow.getInstance();

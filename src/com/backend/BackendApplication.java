@@ -51,11 +51,10 @@ public class BackendApplication {
                     "\t</p>\n" +
                     "</body>\n" +
                     "</html>";
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            exchange.getResponseHeaders().set("Content-Type", "text/html; charset=utf-8");
-            OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
+
         }
     }
 
