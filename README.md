@@ -81,8 +81,6 @@
 
 ✅ Save / Load functionality — enable saving generated images and loading user images.
 
-✅ Image scaling customization — let users choose image resolution and scaling factor.
+✅ Image scaling customisation — let users choose the canvas width and height and scaling factor.
 
 ✅ Restore missing API calls in remote mode — make remote buttons and GA panel functional.
-
-✅ Enable GA (Genetic Algorithm) generation in backend — offload image generation to backend.
