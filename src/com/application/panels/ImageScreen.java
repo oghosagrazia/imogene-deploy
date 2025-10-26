@@ -1,21 +1,21 @@
 package com.application.panels;
 
 import com.GA.GeneticAlgorithm;
-// import com.GA.crossover.BlendCrossover;
-// import com.GA.crossover.CrossoverFunction;
-// import com.GA.crossover.EnsembleCrossoverFunction;
-// import com.GA.crossover.PixelwiseRGBCrossover;
-// import com.GA.fitness.*;
-// import com.GA.fitness.adjustment.FitnessAdjustment;
-// import com.GA.fitness.adjustment.NormalisationAdjustment;
-// import com.GA.generation.GenerationFunction;
-// import com.GA.generation.RandomBitmapGeneration;
-// import com.GA.mutation.*;
-// import com.GA.selection.RouletteWheelSelection;
-// import com.GA.selection.SelectionFunction;
-// import com.application.Application;
+import com.GA.crossover.BlendCrossover;
+import com.GA.crossover.CrossoverFunction;
+import com.GA.crossover.EnsembleCrossoverFunction;
+import com.GA.crossover.PixelwiseRGBCrossover;
+import com.GA.fitness.*;
+import com.GA.fitness.adjustment.FitnessAdjustment;
+import com.GA.fitness.adjustment.NormalisationAdjustment;
+import com.GA.generation.GenerationFunction;
+import com.GA.generation.RandomBitmapGeneration;
+import com.GA.mutation.*;
+import com.GA.selection.RouletteWheelSelection;
+import com.GA.selection.SelectionFunction;
+import com.application.Application;
 import com.utils.BitMapImage;
-// import com.utils.ImageRW;
+import com.utils.ImageRW;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,4 +149,42 @@ public class ImageScreen extends JPanel {
         }
     }
 
+
+    public void setCustomDimensions(int width, int height) {
+        int w = Math.max(1, width);
+        int h = Math.max(1, height);
+
+        // Skips if the dimensions are unchanged
+        if (this.customWidth == w && this.customHeight == h) { return;}
+        this.customWidth = w;
+        this.customHeight = h;
+        currentImageWidth = this.customWidth;
+        currentImageHeight = this.customHeight;
+
+        // Rebuild the drawing panel with the new set dimensions
+        rebuildDrawingPanel();
+        redraw();
+    }
+
+
+    // Rebuild the drawing panel when size or scale changes
+    private void rebuildDrawingPanel() {
+        int pixelWidth = customWidth * upScale;
+        int pixelHeight = customHeight * upScale;
+
+        DrawingPanel newPanel = new DrawingPanel(pixelWidth, pixelHeight);
+
+        if (drawingPanel != null) {
+            Container parent = drawingPanel.getParent();
+            if (parent instanceof JSplitPane) {
+                ((JSplitPane) parent).setRightComponent(newPanel);
+            } else if (parent != null) {
+                parent.remove(drawingPanel);
+                parent.add(newPanel);
+            }
+        }
+        drawingPanel = newPanel;
+        revalidate();
+        repaint();
+    }
 }
