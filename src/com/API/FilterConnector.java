@@ -20,6 +20,9 @@ public class FilterConnector {
     public static final String REBALANCE_RED = "rebalanceRed";
     public static final String REBALANCE_GREEN = "rebalanceGreen";
     public static final String REBALANCE_BLUE = "rebalanceBlue";
+    public static final String REDGREEN = "redOntoGreen";
+    public static final String GREENBLUE = "greenOntoBlue";
+    public static final String BLUERED = "blueOntoRed";
 
     public static BitMapImage requestFilter(String type, BitMapImage image) throws IOException, InterruptedException {
 

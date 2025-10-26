@@ -285,36 +285,60 @@ public class LeftSidebar extends JPanel {
         
         JLabel lblProjections = new JLabel("Spectrum Projections");
 
+        
+        // Red onto Green Button
         btnRedOntoGreen = new JButton("Red -> Green");
-        btnRedOntoGreen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                historyManager.addCanvas(ImageScreen.currentImage);
+        btnRedOntoGreen.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.REDGREEN, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
+        		historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Red", "Green");
-                ImageScreen.redraw();
             }
+        	ImageScreen.redraw();
         });
 
+        // Green onto Blue Button
         btnGreenOntoBlue = new JButton("Green -> Blue");
-        btnGreenOntoBlue.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                historyManager.addCanvas(ImageScreen.currentImage);
+        btnGreenOntoBlue.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.GREENBLUE, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
+        		historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Green", "Blue");
-                ImageScreen.redraw();
             }
+        	ImageScreen.redraw();
         });
 
+        // Blue onto Red Button
         btnBlueOntoRed = new JButton("Blue -> Red");
-        btnBlueOntoRed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                historyManager.addCanvas(ImageScreen.currentImage);
+        btnBlueOntoRed.addActionListener(e -> {
+        	if(remote) {
+        		try {
+        			historyManager.addCanvas(ImageScreen.currentImage);
+        			ImageScreen.currentImage = FilterConnector.requestFilter(FilterConnector.BLUERED, ImageScreen.currentImage);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	} else {
+        		historyManager.addCanvas(ImageScreen.currentImage);
                 ImageScreen.currentImage = ImageUtils.spectralProjection(ImageScreen.currentImage, "Blue", "Red");
-                ImageScreen.redraw();
             }
+        	ImageScreen.redraw();
         });
 
+        
+        
         btnHueOntoSaturation = new JButton("Hue -> Saturation (red)");
         btnHueOntoSaturation.addActionListener(new ActionListener() {
             @Override
@@ -445,9 +469,9 @@ public class LeftSidebar extends JPanel {
             redRebalance.setVisible(true);
             greenRebalance.setVisible(true);
             blueRebalance.setVisible(true);
-            btnRedOntoGreen.setVisible(false);
-            btnGreenOntoBlue.setVisible(false);
-            btnBlueOntoRed.setVisible(false);
+            btnRedOntoGreen.setVisible(true);
+            btnGreenOntoBlue.setVisible(true);
+            btnBlueOntoRed.setVisible(true);
             btnHueOntoSaturation.setVisible(false);
             btnSaturationOntoLightness.setVisible(false);
             btnLightnessOntoHue.setVisible(false);
