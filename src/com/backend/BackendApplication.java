@@ -140,6 +140,15 @@ public class BackendApplication {
 
                 if(type.equalsIgnoreCase("rebalanceBlue"))
                     image = ImageUtils.rgbBalancing(image, 0.2, 0.2, 0.6);
+
+                if(type.equalsIgnoreCase("redOntoGreen"))
+                    image = ImageUtils.spectralProjection(image, "Red", "Green");
+
+                if(type.equalsIgnoreCase("greenOntoBlue"))
+                    image = ImageUtils.spectralProjection(image, "Green", "Blue");
+
+                if(type.equalsIgnoreCase("blueOntoRed"))
+                    image = ImageUtils.spectralProjection(image, "Blue", "Red");
                 
                 	
 

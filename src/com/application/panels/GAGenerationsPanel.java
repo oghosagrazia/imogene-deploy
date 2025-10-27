@@ -93,7 +93,8 @@ public class GAGenerationsPanel extends JPanel {
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RightSidebar.layout.show(RightSidebar.getInstance(), "GA Params");
+                // Calls helper method to display the correct card on the RightSidebar's child panel
+                RightSidebar.showCard( "GA Params");
             }
         });
 

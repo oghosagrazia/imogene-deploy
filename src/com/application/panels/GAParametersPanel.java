@@ -211,7 +211,8 @@ public class GAParametersPanel extends JPanel {
                         fitnessAdjustment
                 );
 
-                RightSidebar.layout.show(RightSidebar.getInstance(), "GA Generations");
+                // Calls helper method to display the correct card on the RightSidebar's child panel
+                RightSidebar.showCard("GA Generations");
             }
         });
 
