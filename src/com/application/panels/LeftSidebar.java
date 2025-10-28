@@ -5,13 +5,16 @@ import com.API.GenerationConnector;
 import com.GA.ImageGenerator;
 import com.GA.generation.RandomColorGeneration;
 import com.application.HistoryManager;
+import com.application.LoadPhoto;
 import com.utils.BitMapImage;
 import com.utils.ImageUtils;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class LeftSidebar extends JPanel {
 
@@ -45,6 +48,7 @@ public class LeftSidebar extends JPanel {
     // Added buttons
     private JButton undo;
     private JButton clearToWhite;
+    private JButton btnUploadIMG;
 
     HistoryManager historyManager = new HistoryManager();
 
@@ -127,7 +131,34 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+        JLabel lblFunctions = new JLabel("Functions");
 
+        btnUploadIMG = new JButton("Upload Image");
+        btnUploadIMG.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    historyManager.addCanvas(ImageScreen.currentImage);
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.setAcceptAllFileFilterUsed(false);
+                    chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images (png, jpg, jpeg, bmp)", "png", "jpg", "jpeg", "bmp"));
+                    LoadPhoto loadPhoto = new LoadPhoto();
+                    int res = chooser.showOpenDialog(null);
+                    if (res == JFileChooser.APPROVE_OPTION) {
+                        File filePath = new File(chooser.getSelectedFile().getAbsolutePath());
+                        BitMapImage loaded = loadPhoto.loadImage(filePath);
+
+                        ImageScreen.currentImage = loaded;
+                        ImageScreen.currentImageHeight = loaded.getHeight();
+                        ImageScreen.currentImageWidth = loaded.getWidth();
+
+                        ImageScreen.redraw();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
 
         JLabel lblFilters = new JLabel("Filters");
@@ -376,6 +407,7 @@ public class LeftSidebar extends JPanel {
         // Added Buttons
         add(undo);
         add(clearToWhite);
+        add(btnUploadIMG);
 
         // Separator
         add(Box.createVerticalStrut(10));
@@ -430,6 +462,7 @@ public class LeftSidebar extends JPanel {
         // Added Buttons
         undo.setAlignmentX(Component.CENTER_ALIGNMENT);
         clearToWhite.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnUploadIMG.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set all button widths to full width of the left sidebar
         generateRandom.setMaximumSize(new Dimension(Integer.MAX_VALUE, generateRandom.getPreferredSize().height));
@@ -453,6 +486,7 @@ public class LeftSidebar extends JPanel {
         // Added Buttons
         undo.setMaximumSize(new Dimension(Integer.MAX_VALUE, undo.getPreferredSize().height));
         clearToWhite.setMaximumSize(new Dimension(Integer.MAX_VALUE, clearToWhite.getPreferredSize().height));
+        btnUploadIMG.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnUploadIMG.getPreferredSize().height));
     }
 
     public void setRemote(boolean remote) {
@@ -461,6 +495,7 @@ public class LeftSidebar extends JPanel {
             generateColour.setVisible(true);
             undo.setVisible(true);
             clearToWhite.setVisible(true);
+            btnUploadIMG.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(true);
             filterSmoothMedium.setVisible(true);
