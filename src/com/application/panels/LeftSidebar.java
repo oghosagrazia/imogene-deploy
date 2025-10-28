@@ -431,6 +431,7 @@ public class LeftSidebar extends JPanel {
         add(generateColour);
         // Added Buttons
         add(undo);
+        add(redo);
         add(clearToWhite);
         add(btnUploadIMG);
 
