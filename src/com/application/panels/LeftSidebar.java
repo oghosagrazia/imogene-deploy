@@ -116,6 +116,20 @@ public class LeftSidebar extends JPanel {
         });
         // Redo Button
         redo = new JButton("Redo");
+        redo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    BitMapImage redoImage = historyManager.getRedoCanvas();
+                    if (redoImage != null) {
+                        ImageScreen.currentImage = redoImage;
+                        ImageScreen.redraw();
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+        }
+        });
 
     	// Clear Button
         clearToWhite = new JButton("Clear");
