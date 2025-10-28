@@ -47,6 +47,7 @@ public class LeftSidebar extends JPanel {
 
     // Added buttons
     private JButton undo;
+    private JButton redo;
     private JButton clearToWhite;
     private JButton btnUploadIMG;
 
@@ -113,6 +114,8 @@ public class LeftSidebar extends JPanel {
                 ImageScreen.redraw();
             }
         });
+        // Redo Button
+        redo = new JButton("Redo");
 
     	// Clear Button
         clearToWhite = new JButton("Clear");
