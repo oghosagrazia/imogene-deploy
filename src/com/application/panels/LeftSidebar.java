@@ -487,6 +487,7 @@ public class LeftSidebar extends JPanel {
         btnLightnessOntoHue.setAlignmentX(Component.CENTER_ALIGNMENT);
         // Added Buttons
         undo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        redo.setAlignmentX(Component.CENTER_ALIGNMENT);
         clearToWhite.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnUploadIMG.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -511,6 +512,7 @@ public class LeftSidebar extends JPanel {
         btnLightnessOntoHue.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnLightnessOntoHue.getPreferredSize().height));
         // Added Buttons
         undo.setMaximumSize(new Dimension(Integer.MAX_VALUE, undo.getPreferredSize().height));
+        redo.setMaximumSize(new Dimension(Integer.MAX_VALUE, redo.getPreferredSize().height));
         clearToWhite.setMaximumSize(new Dimension(Integer.MAX_VALUE, clearToWhite.getPreferredSize().height));
         btnUploadIMG.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnUploadIMG.getPreferredSize().height));
     }
@@ -520,6 +522,7 @@ public class LeftSidebar extends JPanel {
             generateRandom.setVisible(true);
             generateColour.setVisible(true);
             undo.setVisible(true);
+            redo.setVisible(true);
             clearToWhite.setVisible(true);
             btnUploadIMG.setVisible(true);
             filterGrayscale.setVisible(true);
@@ -540,6 +543,7 @@ public class LeftSidebar extends JPanel {
         } else {
             generateRandom.setVisible(true);
             generateColour.setVisible(true);
+            redo.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(true);
             filterSmoothMedium.setVisible(true);
