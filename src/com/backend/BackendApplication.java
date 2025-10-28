@@ -149,8 +149,15 @@ public class BackendApplication {
 
                 if(type.equalsIgnoreCase("blueOntoRed"))
                     image = ImageUtils.spectralProjection(image, "Blue", "Red");
+
+                if(type.equalsIgnoreCase("hueOntoSaturation"))
+                    image = ImageUtils.spectralProjection(image, "Hue", "Saturation");
                 
-                	
+                if(type.equalsIgnoreCase("saturationOntoLightness"))
+                    image = ImageUtils.spectralProjection(image, "Saturation", "Lightness");
+                
+                if(type.equalsIgnoreCase("lightnessOntoHue"))
+                    image = ImageUtils.spectralProjection(image, "Lightness", "Hue");	
 
                 String json = Util.arrayToJson(image.getRgb());
                 exchange.getResponseHeaders().set("Content-Type", "application/json");

@@ -23,6 +23,10 @@ public class FilterConnector {
     public static final String REDGREEN = "redOntoGreen";
     public static final String GREENBLUE = "greenOntoBlue";
     public static final String BLUERED = "blueOntoRed";
+    public static final String HUE_SATURATION = "hueOntoSaturation";
+    public static final String SATURATION_LIGHTNESS = "saturationOntoLightness";
+    public static final String LIGHTNESS_HUE = "lightnessOntoHue";
+
 
     public static BitMapImage requestFilter(String type, BitMapImage image) throws IOException, InterruptedException {
 
