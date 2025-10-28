@@ -138,20 +138,20 @@ public class LeftSidebar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    historyManager.addCanvas(ImageScreen.currentImage);
+                    ImageScreen.currentImage = historyManager.getLastCanvas();
                     JFileChooser chooser = new JFileChooser();
                     chooser.setAcceptAllFileFilterUsed(false);
                     chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images (png, jpg, jpeg, bmp)", "png", "jpg", "jpeg", "bmp"));
+
                     LoadPhoto loadPhoto = new LoadPhoto();
                     int res = chooser.showOpenDialog(null);
                     if (res == JFileChooser.APPROVE_OPTION) {
                         File filePath = new File(chooser.getSelectedFile().getAbsolutePath());
-                        BitMapImage loaded = loadPhoto.loadImage(filePath);
+                        BitMapImage loadedImg = loadPhoto.loadImage(filePath);
 
-                        ImageScreen.currentImage = loaded;
-                        ImageScreen.currentImageHeight = loaded.getHeight();
-                        ImageScreen.currentImageWidth = loaded.getWidth();
+                        BitMapImage displayImg = new BitMapImage(ImageUtils.resize(loadedImg, ImageScreen.currentImageHeight, ImageScreen.currentImageWidth).getRgb());
 
+                        ImageScreen.currentImage = displayImg;
                         ImageScreen.redraw();
                     }
                 } catch (Exception ex) {
@@ -159,6 +159,8 @@ public class LeftSidebar extends JPanel {
                 }
             }
         });
+
+
 
 
         JLabel lblFilters = new JLabel("Filters");
