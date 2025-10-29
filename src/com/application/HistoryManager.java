@@ -3,7 +3,6 @@ import com.application.panels.ImageScreen;
 import com.utils.BitMapImage;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class HistoryManager {

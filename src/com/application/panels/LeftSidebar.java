@@ -166,9 +166,7 @@ public class LeftSidebar extends JPanel {
                         File filePath = new File(chooser.getSelectedFile().getAbsolutePath());
                         BitMapImage loadedImg = loadPhoto.loadImage(filePath);
 
-                        BitMapImage displayImg = new BitMapImage(ImageUtils.resize(loadedImg, ImageScreen.currentImageHeight, ImageScreen.currentImageWidth).getRgb());
-
-                        ImageScreen.currentImage = displayImg;
+                        ImageScreen.currentImage = new BitMapImage(ImageUtils.resize(loadedImg, ImageScreen.currentImageHeight, ImageScreen.currentImageWidth).getRgb());
                         ImageScreen.redraw();
                     }
                 } catch (Exception ex) {
@@ -545,6 +543,7 @@ public class LeftSidebar extends JPanel {
         } else {
             generateRandom.setVisible(true);
             generateColour.setVisible(true);
+            undo.setVisible(true);
             redo.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(true);

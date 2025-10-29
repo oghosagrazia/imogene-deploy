@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class LoadPhoto {
     public BitMapImage loadImage(File path) throws IOException {
-
         if (path.exists() && path.isFile()) {
             return ImageRW.readImage(path.getAbsolutePath());
         }
