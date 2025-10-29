@@ -11,10 +11,10 @@ public class ImageScreen extends JPanel {
     public static DrawingPanel drawingPanel;
 
     public static final boolean UPSCALE = true;
-    public  static final int DEFAULT_UPSCALE_FACTOR = 6; // Default scale at startup.
+    public  static final int DEFAULT_UPSCALE_FACTOR = 1; // Default scale at startup.
 
-    public static int currentImageHeight = 100;
-    public static int currentImageWidth = 133;
+    public static int currentImageHeight = 350;
+    public static int currentImageWidth = 450;
 
     public static BitMapImage currentImage;
     public static GeneticAlgorithm currentGA;
@@ -26,7 +26,7 @@ public class ImageScreen extends JPanel {
     private int upScale;
 
     // Singleton pattern
-    private static final ImageScreen instance = new ImageScreen(100,133,DEFAULT_UPSCALE_FACTOR
+    private static final ImageScreen instance = new ImageScreen(350,450,DEFAULT_UPSCALE_FACTOR
     );
 
     public static ImageScreen getInstance() {
@@ -81,24 +81,14 @@ public class ImageScreen extends JPanel {
         }
         this.upScale = customScale;
 
-
+        rebuildDrawingPanel();
         redraw();
     }
 
-
-    // Getters
-    public int getCustomWidth() {
-        return customWidth;
-    }
-
-    public int getCustomHeight() {
-        return customHeight;
-    }
-
+    // Getter method for upscale value
     public int getUpScale(){
         return upScale;
     }
-
 
 
     public static void drawPixel(int x, int y, Color color) {
@@ -116,19 +106,40 @@ public class ImageScreen extends JPanel {
     }
 
     public static void redraw() {
+        if (drawingPanel == null) {
+            return;
+        }
+        // Allows a new image to be applied when dimensions change again.
+        drawingPanel.clearCanvas();
+
+        if (currentImage == null || currentImage.getRgb() == null) {
+            drawingPanel.repaint();
+            return;
+        }
         paintImage(ImageScreen.currentImage);
     }
 
     private static void paintImage(BitMapImage image) {
         int[][][] bitmap = image.getRgb();
 
-        int imageHeight = bitmap.length; // Finds how many pixels are in the height.
-        int imageWidth = bitmap[0].length; // Find how many pixels are in the width.
+        int imageHeight = bitmap.length; // Original image height
+        int imageWidth = bitmap[0].length; // Original image width
 
-        // Checks if the drawing pixels are within bounds of the real image size.
-        for(int y = 0; y < Math.min(ImageScreen.currentImageHeight, imageHeight); y++) {
-            for(int x = 0; x < Math.min(ImageScreen.currentImageWidth, imageWidth); x++) {
-                drawPixel(x, y, new Color(bitmap[y][x][0], bitmap[y][x][1], bitmap[y][x][2]));
+        // Calculate scaling factors
+        double scaleX = (double) currentImageWidth / imageWidth;
+        double scaleY = (double) currentImageHeight / imageHeight;
+
+
+        for(int y = 0; y < currentImageHeight; y++) {
+            for(int x = 0; x < currentImageWidth; x++) {
+                // Nearest-neighbour pixel mapping
+                // Maps canvas coordinates back to original image coordinates
+                int imageX = (int) Math.min(x / scaleX, imageWidth - 1);
+                int imageY = (int) Math.min(y / scaleY, imageHeight - 1);
+
+                drawPixel(x, y, new Color(bitmap[imageY][imageX][0],
+                        bitmap[imageY][imageX][1],
+                        bitmap[imageY][imageX][2]));
             }
         }
     }
