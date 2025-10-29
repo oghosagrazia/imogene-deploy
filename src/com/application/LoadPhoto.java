@@ -14,5 +14,4 @@ public class LoadPhoto {
         }
         throw new IOException("File does not exist or is not a file");
     }
-
 }

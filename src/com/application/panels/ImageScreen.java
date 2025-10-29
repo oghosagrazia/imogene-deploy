@@ -1,26 +1,10 @@
 package com.application.panels;
 
 import com.GA.GeneticAlgorithm;
-import com.GA.crossover.BlendCrossover;
-import com.GA.crossover.CrossoverFunction;
-import com.GA.crossover.EnsembleCrossoverFunction;
-import com.GA.crossover.PixelwiseRGBCrossover;
-import com.GA.fitness.*;
-import com.GA.fitness.adjustment.FitnessAdjustment;
-import com.GA.fitness.adjustment.NormalisationAdjustment;
-import com.GA.generation.GenerationFunction;
-import com.GA.generation.RandomBitmapGeneration;
-import com.GA.mutation.*;
-import com.GA.selection.RouletteWheelSelection;
-import com.GA.selection.SelectionFunction;
-import com.application.Application;
 import com.utils.BitMapImage;
-import com.utils.ImageRW;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ImageScreen extends JPanel {
 

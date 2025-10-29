@@ -62,6 +62,7 @@ public class BitMapImage {
         this.width = rgb[0].length;
     }
 
+    // Method to clears the ImageScreen back to white
     public void resetToWhite(){
         for (int i=0; i<getHeight(); i++){
             for (int j=0; j<getWidth(); j++){
