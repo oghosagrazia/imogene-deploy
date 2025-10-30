@@ -8,6 +8,7 @@ import com.application.HistoryManager;
 import com.application.LoadPhoto;
 import com.utils.BitMapImage;
 import com.utils.ImageUtils;
+import com.application.SavePhoto;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -50,6 +51,7 @@ public class LeftSidebar extends JPanel {
     private JButton redo;
     private JButton clearToWhite;
     private JButton btnUploadIMG;
+    private JButton btnSaveIMG;
 
     HistoryManager historyManager = new HistoryManager();
 
@@ -177,6 +179,23 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+        btnSaveIMG = new JButton("Save Image");
+        btnSaveIMG.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{ 
+                    if (ImageScreen.currentImage != null) {
+                        SavePhoto savePhoto = new SavePhoto();
+                        savePhoto.saveImageWithName(ImageScreen.currentImage, "myimogene-image");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No image to save! You must generate or load an image first.", "Save Error - No Image", JOptionPane.WARNING_MESSAGE);
+                    }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+        });
 
 
 
