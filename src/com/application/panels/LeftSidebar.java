@@ -8,6 +8,7 @@ import com.application.HistoryManager;
 import com.application.LoadPhoto;
 import com.utils.BitMapImage;
 import com.utils.ImageUtils;
+import com.application.SavePhoto;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -50,6 +51,7 @@ public class LeftSidebar extends JPanel {
     private JButton redo;
     private JButton clearToWhite;
     private JButton btnUploadIMG;
+    private JButton btnSaveIMG;
 
     HistoryManager historyManager = new HistoryManager();
 
@@ -175,6 +177,23 @@ public class LeftSidebar extends JPanel {
             }
         });
 
+        btnSaveIMG = new JButton("Save Image");
+        btnSaveIMG.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{ 
+                    if (ImageScreen.currentImage != null) {
+                        SavePhoto savePhoto = new SavePhoto();
+                        savePhoto.saveImageWithName(ImageScreen.currentImage, "myimogene-image");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No image to save! You must generate or load an image first.", "Save Error - No Image", JOptionPane.WARNING_MESSAGE);
+                    }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+        });
 
 
 
@@ -434,6 +453,7 @@ public class LeftSidebar extends JPanel {
         add(redo);
         add(clearToWhite);
         add(btnUploadIMG);
+        add(btnSaveIMG);
 
         // Separator
         add(Box.createVerticalStrut(10));
@@ -490,6 +510,7 @@ public class LeftSidebar extends JPanel {
         redo.setAlignmentX(Component.CENTER_ALIGNMENT);
         clearToWhite.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnUploadIMG.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSaveIMG.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set all button widths to full width of the left sidebar
         generateRandom.setMaximumSize(new Dimension(Integer.MAX_VALUE, generateRandom.getPreferredSize().height));
@@ -515,6 +536,7 @@ public class LeftSidebar extends JPanel {
         redo.setMaximumSize(new Dimension(Integer.MAX_VALUE, redo.getPreferredSize().height));
         clearToWhite.setMaximumSize(new Dimension(Integer.MAX_VALUE, clearToWhite.getPreferredSize().height));
         btnUploadIMG.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnUploadIMG.getPreferredSize().height));
+        btnSaveIMG.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnSaveIMG.getPreferredSize().height));
     }
 
     public void setRemote(boolean remote) {
@@ -525,6 +547,7 @@ public class LeftSidebar extends JPanel {
             redo.setVisible(true);
             clearToWhite.setVisible(true);
             btnUploadIMG.setVisible(true);
+            btnSaveIMG.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(true);
             filterSmoothMedium.setVisible(true);
