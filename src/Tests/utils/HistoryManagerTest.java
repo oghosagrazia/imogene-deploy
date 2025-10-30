@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
-class UndoTest {
+class HistoryManagerTest {
     HistoryManager dummyHistoryManager;
     BitMapImage image1;
     BitMapImage image2;
