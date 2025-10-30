@@ -455,6 +455,7 @@ public class LeftSidebar extends JPanel {
         add(redo);
         add(clearToWhite);
         add(btnUploadIMG);
+        add(btnSaveIMG);
 
         // Separator
         add(Box.createVerticalStrut(10));
@@ -511,6 +512,7 @@ public class LeftSidebar extends JPanel {
         redo.setAlignmentX(Component.CENTER_ALIGNMENT);
         clearToWhite.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnUploadIMG.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSaveIMG.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set all button widths to full width of the left sidebar
         generateRandom.setMaximumSize(new Dimension(Integer.MAX_VALUE, generateRandom.getPreferredSize().height));
@@ -536,6 +538,7 @@ public class LeftSidebar extends JPanel {
         redo.setMaximumSize(new Dimension(Integer.MAX_VALUE, redo.getPreferredSize().height));
         clearToWhite.setMaximumSize(new Dimension(Integer.MAX_VALUE, clearToWhite.getPreferredSize().height));
         btnUploadIMG.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnUploadIMG.getPreferredSize().height));
+        btnSaveIMG.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnSaveIMG.getPreferredSize().height));
     }
 
     public void setRemote(boolean remote) {
@@ -546,6 +549,7 @@ public class LeftSidebar extends JPanel {
             redo.setVisible(true);
             clearToWhite.setVisible(true);
             btnUploadIMG.setVisible(true);
+            btnSaveIMG.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(true);
             filterSmoothMedium.setVisible(true);
@@ -564,6 +568,7 @@ public class LeftSidebar extends JPanel {
         } else {
             generateRandom.setVisible(true);
             generateColour.setVisible(true);
+            undo.setVisible(true);
             redo.setVisible(true);
             filterGrayscale.setVisible(true);
             filterSmoothSoft.setVisible(true);
