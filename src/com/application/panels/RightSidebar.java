@@ -1,8 +1,5 @@
 package com.application.panels;
 
-import com.GA.fitness.*;
-import com.GA.mutation.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -77,7 +74,7 @@ public class RightSidebar extends JPanel {
         JPanel rowScale = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         rowScale.setAlignmentX(Component.CENTER_ALIGNMENT);
         rowScale.add(new JLabel("Scale:"));
-        txtScale = new JTextField("6", 5);
+        txtScale = new JTextField("1", 5);
         rowScale.add(txtScale);
         controls.add(rowScale);
 
@@ -90,9 +87,34 @@ public class RightSidebar extends JPanel {
                 int h = Integer.parseInt(txtHeight.getText().trim());
                 int s = Integer.parseInt(txtScale.getText().trim());
 
-                ImageScreen screen = ImageScreen.getInstance();
-                screen.setCustomDimensions(w, h);
-                screen.setUpScale(s);
+                // Check canvas is not null
+                if (ImageScreen.currentImage == null || ImageScreen.currentImage.getRgb() == null) {
+                    JOptionPane.showMessageDialog(this,
+                            "Load/generate an image before changing canvas size.");
+                    return;
+                }
+                // Check minimum integer input
+                if (w < 1 || h < 1 || s < 1) {
+                    JOptionPane.showMessageDialog(this, "Width and Height must be greater than 1");
+                    return;
+                }
+
+                // Check canvas fits on the device screen
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+                int pixelW = w * s;
+                int pixelH = h * s;
+
+                int maxW = (int)(screen.width  * 0.9);
+                int maxH = (int)(screen.height * 0.9);
+                if (pixelW > maxW || pixelH > maxH) {
+                    JOptionPane.showMessageDialog(this,
+                            "Canvas won’t fit on screen. Reduce scale or dimensions.");
+                    return;
+                }
+
+                ImageScreen screenPanel = ImageScreen.getInstance();
+                screenPanel.setCustomDimensions(w, h);
+                screenPanel.setUpScale(s);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Please enter valid integers.");
             }

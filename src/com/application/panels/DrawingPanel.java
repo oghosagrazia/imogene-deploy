@@ -26,10 +26,12 @@ public class DrawingPanel extends JPanel {
     }
 
     public void clearCanvas() {
-        Graphics2D g2d = canvas.createGraphics();
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        g2d.dispose();
+        if (canvas != null) {
+            Graphics2D g2d = canvas.createGraphics();
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            g2d.dispose();
+        }
     }
 
     @Override
