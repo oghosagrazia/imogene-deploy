@@ -20,6 +20,8 @@ class LoadImageTest {
         loadPhoto = new LoadPhoto();
     }
 
+
+    // Test an invalid file, exception expected
     @Test
     void invalidFileTest() throws IOException {
         File tempInvalidFile = new File("invalidFile");
@@ -28,11 +30,15 @@ class LoadImageTest {
         assertEquals("File does not exist or is not a file", exception.getMessage());
     }
 
+
+    // Test with a valid file
     @Test
     void validFileTest() throws IOException {
+        // create a temp file
         File tempValidFile = File.createTempFile("test", ".bmp");
         tempValidFile.deleteOnExit();
 
+        // Convert file to type BitMapImage
         BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
         bufferedImage.setRGB(0, 0, 255);
         ImageIO.write(bufferedImage, "BMP", tempValidFile);

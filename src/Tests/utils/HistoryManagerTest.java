@@ -22,11 +22,14 @@ class HistoryManagerTest {
         dummyHistoryManager.addCanvas(image1);
         dummyHistoryManager.addCanvas(image2);
     }
+
+    // Test to see if the addCanvas() method is updating the ArrayList correctly
     @Test
     public void testAddCanvas() {
         assertEquals(2, dummyHistoryManager.getUndoList().size());
     }
 
+    // Test to check elements are getting correctly popped out of the ArrayList
     @Test
     public void testStackFunctionality(){
         assertEquals(2, dummyHistoryManager.getUndoList().size());
@@ -36,6 +39,7 @@ class HistoryManagerTest {
         assertEquals(0, dummyHistoryManager.getUndoList().size());
     }
 
+    // Test to check the value returned of getLastCanvas() is correct
     @Test
     public void testReturnValueOfPop(){
         assertEquals(dummyHistoryManager.getLastCanvas(), image2);

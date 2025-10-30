@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class HistoryManager {
+    // ArrayList to store screenshots of previous canvases
     private final ArrayList<BitMapImage> undoList = new ArrayList<>();
     private final ArrayList<BitMapImage> redoList = new ArrayList<>();
 

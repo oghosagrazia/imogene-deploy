@@ -109,10 +109,12 @@ public class LeftSidebar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    // Call the method to get the previous canvas screenshot
                     ImageScreen.currentImage = historyManager.getLastCanvas();
                 } catch (Exception ex){
                     ex.printStackTrace();
                 }
+                // Update the ImageScreen
                 ImageScreen.redraw();
             }
         });
@@ -150,7 +152,6 @@ public class LeftSidebar extends JPanel {
             }
         });
 
-        JLabel lblFunctions = new JLabel("Functions");
 
         btnUploadIMG = new JButton("Upload Image");
         btnUploadIMG.addActionListener(new ActionListener() {
@@ -158,6 +159,8 @@ public class LeftSidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ImageScreen.currentImage = historyManager.getLastCanvas();
+
+                    // Define file chooser and set allowed file types
                     JFileChooser chooser = new JFileChooser();
                     chooser.setAcceptAllFileFilterUsed(false);
                     chooser.addChoosableFileFilter(new FileNameExtensionFilter("Images (png, jpg, jpeg, bmp)", "png", "jpg", "jpeg", "bmp"));
