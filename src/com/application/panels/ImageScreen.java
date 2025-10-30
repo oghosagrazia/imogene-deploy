@@ -11,10 +11,10 @@ public class ImageScreen extends JPanel {
     public static DrawingPanel drawingPanel;
 
     public static final boolean UPSCALE = true;
-    public  static final int DEFAULT_UPSCALE_FACTOR = 1; // Default scale at startup.
+    public  static final int DEFAULT_UPSCALE_FACTOR = 6; // Default scale at startup.
 
-    public static int currentImageHeight = 350;
-    public static int currentImageWidth = 450;
+    public static int currentImageHeight = 100;
+    public static int currentImageWidth = 133;
 
     public static BitMapImage currentImage;
     public static GeneticAlgorithm currentGA;
@@ -26,7 +26,7 @@ public class ImageScreen extends JPanel {
     private int upScale;
 
     // Singleton pattern
-    private static final ImageScreen instance = new ImageScreen(350,450,DEFAULT_UPSCALE_FACTOR
+    private static final ImageScreen instance = new ImageScreen(100,133,DEFAULT_UPSCALE_FACTOR
     );
 
     public static ImageScreen getInstance() {
