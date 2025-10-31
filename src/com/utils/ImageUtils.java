@@ -9,12 +9,51 @@ public class ImageUtils {
     public static BitMapImage invert(BitMapImage image) {
         int[][][] rgb = image.getRgb();
         int[][][] rgbOut = new int[rgb.length][rgb[0].length][3];
-        for(int y = 0; y  < image.getHeight(); y++)
-            for(int x = 0; x < image.getWidth(); x++)
-                for(int c = 0; c < 3; c++)
+        for (int y = 0; y < image.getHeight(); y++)
+            for (int x = 0; x < image.getWidth(); x++)
+                for (int c = 0; c < 3; c++)
                     rgbOut[y][x][c] = 255 - rgb[y][x][c];
         return new BitMapImage(rgbOut);
     }
+
+    // Nearest-neighbour scaling logic
+    public static BitMapImage scale(BitMapImage image, int newWidth, int newHeight) {
+
+        // Validation checks
+        if (image == null || image.getRgb() == null) {
+            throw new IllegalArgumentException("Image cannot be empty");
+        }
+
+        if (newWidth <= 0 || newHeight <= 0) {
+            throw new IllegalArgumentException("Size must be positive");
+        }
+
+        int[][][] rgb = image.getRgb();
+        if (rgb.length == 0 || rgb[0].length == 0) {
+            throw new IllegalArgumentException("Image has no pixels");
+        }
+
+        int imageWidth = rgb[0].length;
+        int imageHeight = rgb.length;
+        int[][][] scaling = new int[newHeight][newWidth][3];
+
+        double scaleX = (double) newWidth / imageWidth;
+        double scaleY = (double) newHeight / imageHeight;
+
+        // Mapping
+        for (int x = 0; x < newWidth; x++) {
+            for (int y = 0; y < newHeight; y++) {
+                int imageX = (int) Math.min(x / scaleX, imageWidth - 1);
+                int imageY = (int) Math.min(y / scaleY, imageHeight - 1);
+
+                scaling[y][x][0] = rgb[imageY][imageX][0];
+                scaling[y][x][1] = rgb[imageY][imageX][1];
+                scaling[y][x][2] = rgb[imageY][imageX][2];
+            }
+        }
+        return new BitMapImage(scaling);
+    }
+
 
     public static BitMapImage spectralProjection(BitMapImage image, String source, String target) {
         System.out.println("Called with " + source + " and " + target);
@@ -863,5 +902,6 @@ public class ImageUtils {
         }
         return img;
     }
+
 
 }
