@@ -74,7 +74,7 @@ public class RightSidebar extends JPanel {
         JPanel rowScale = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 0));
         rowScale.setAlignmentX(Component.CENTER_ALIGNMENT);
         rowScale.add(new JLabel("Scale:"));
-        txtScale = new JTextField("1", 5);
+        txtScale = new JTextField("6", 5);
         rowScale.add(txtScale);
         controls.add(rowScale);
 
