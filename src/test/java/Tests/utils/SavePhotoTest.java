@@ -1,4 +1,4 @@
-package Tests.application;
+package Tests.utils;
 
 import com.application.SavePhoto;
 import com.utils.BitMapImage;

@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
 public class BackendApplication {
 
     public static void main(String[] args) throws IOException {
-        int portNumber = 8080;
+        int portNumber = 8081;
         HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), 0);
 
         // Assign handlers to endpoints

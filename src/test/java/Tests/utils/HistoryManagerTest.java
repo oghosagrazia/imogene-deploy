@@ -5,9 +5,9 @@ import com.application.HistoryManager;
 import com.utils.BitMapImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.application.ImageScreen;
+import com.application.panels.ImageScreen;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HistoryManagerTest {
     private HistoryManager dummyHistoryManager;
@@ -52,8 +52,8 @@ class HistoryManagerTest {
             ImageScreen.currentImageHeight = 50;
             ImageScreen.currentImage = image1;
 
-       // dummyHistoryManager.addCanvas(image1);
-        //dummyHistoryManager.addCanvas(image2);
+        dummyHistoryManager.addCanvas(image1);
+        dummyHistoryManager.addCanvas(image2);
     }
 
     // Test to see if the addCanvas() method is updating the ArrayList correctly
