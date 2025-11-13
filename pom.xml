@@ -13,6 +13,7 @@
     <name>Imogene Image App</name>
     <modules>
         <module>imogene-gen</module>
+        <module>imogene-ga</module>
         <module>imogene-app</module>
     </modules>
 
@@ -54,19 +55,11 @@
                 <scope>test</scope>
             </dependency>
 
-            <dependency>
-                <groupId>com.imogene</groupId>
-                <artifactId>imogene-gen</artifactId>
-            </dependency>
+           
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>com.imogene</groupId>
-            <artifactId>imogene-gen</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
