@@ -1,7 +1,6 @@
 package com.imogene.GA.mutation;
 
 import com.imogene.GA.IndividualImage;
-import com.application.Application;
 import com.imogene.utils.BitMapImage;
 import com.imogene.utils.Util;
 
@@ -48,7 +47,7 @@ public class RandomPixelAdjustmentsMutation extends MutationFunction {
 
         for(int y = 0; y < rgb.length; y++) {
             for(int x = 0; x < rgb[0].length; x++) {
-                if(Application.rng.nextDouble(100.0) < mutationPixelProbability) {
+                if(Util.rng.nextDouble(100.0) < mutationPixelProbability) {
                     for(int c = 0; c < 3; c++) {
                         rgbMutated[y][x][c] += (int) Math.round(maxAdjustmentPerColour - maxAdjustmentPerColour * Util.rng.nextDouble(2.0));
                         if(rgbMutated[y][x][c] < 0)

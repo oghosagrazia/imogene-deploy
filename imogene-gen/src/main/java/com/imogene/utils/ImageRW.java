@@ -1,6 +1,5 @@
 package com.imogene.utils;
 
-import com.application.panels.ImageScreen;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -10,9 +9,8 @@ import java.io.IOException;
 public class ImageRW {
 
     // TODO: finish parametrisation, e.g. add upscale factor as parameter
-    public static BufferedImage toBufferedImage(BitMapImage image) {
+    public static BufferedImage toBufferedImage(BitMapImage image, int scale) {
         int[][][] pixels = image.getRgb();
-        int scale = ImageScreen.getInstance().getUpScale();
 
         int height = pixels.length;
         int width = pixels[0].length;

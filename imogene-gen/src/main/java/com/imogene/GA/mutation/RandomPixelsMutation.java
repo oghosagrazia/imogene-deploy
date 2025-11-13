@@ -1,7 +1,6 @@
 package com.imogene.GA.mutation;
 
 import com.imogene.GA.IndividualImage;
-import com.application.Application;
 import com.imogene.utils.BitMapImage;
 import com.imogene.utils.Util;
 
@@ -41,10 +40,10 @@ public class RandomPixelsMutation extends MutationFunction {
 
         for(int y = 0; y < rgb.length; y++) {
             for(int x = 0; x < rgb[0].length; x++) {
-                if(Application.rng.nextDouble(100.0) < mutationPixelProbability) {
-                    rgbMutated[y][x][0] = Application.rng.nextInt(256);
-                    rgbMutated[y][x][1] = Application.rng.nextInt(256);
-                    rgbMutated[y][x][2] = Application.rng.nextInt(256);
+                if(Util.rng.nextDouble(100.0) < mutationPixelProbability) {
+                    rgbMutated[y][x][0] = Util.rng.nextInt(256);
+                    rgbMutated[y][x][1] = Util.rng.nextInt(256);
+                    rgbMutated[y][x][2] = Util.rng.nextInt(256);
                 }
             }
         }

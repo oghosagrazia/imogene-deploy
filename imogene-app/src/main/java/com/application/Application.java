@@ -41,8 +41,9 @@ public class Application {
             GeneticAlgorithm ga = ImageScreen.currentGA;
             ArrayList<IndividualImage> images = ga.best;
 
+            int scale = ImageScreen.getInstance().getUpScale();
             for (IndividualImage frame : images) {
-                writer.writeToSequence(ImageRW.toBufferedImage(frame.getImage()));
+                writer.writeToSequence(ImageRW.toBufferedImage(frame.getImage(), scale));
             }
             writer.close();
         } catch (FileNotFoundException e) {
