@@ -1,8 +1,8 @@
 package com.API;
 
 import com.application.panels.ConnectionScreen;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.Util;
+import com.utils.BitMapImage;
+import com.utils.Util;
 
 import java.io.IOException;
 import java.io.InputStream;

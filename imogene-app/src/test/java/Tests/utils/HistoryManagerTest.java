@@ -2,7 +2,7 @@ package Tests.utils;
 
 
 import com.application.HistoryManager;
-import com.imogene.utils.BitMapImage;
+import com.utils.BitMapImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.application.panels.ImageScreen;

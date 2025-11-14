@@ -1,8 +1,8 @@
 package com.application.panels;
 
 import com.application.Application;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.ImageUtils;
+import com.utils.BitMapImage;
+import com.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;

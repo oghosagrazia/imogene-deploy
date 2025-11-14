@@ -1,6 +1,6 @@
 package com.application;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.ImageRW;
+import com.utils.BitMapImage;
+import com.utils.ImageRW;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

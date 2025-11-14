@@ -1,19 +1,19 @@
 package com.application.panels;
 
-import com.imogene.GA.GeneticAlgorithm;
-import com.imogene.GA.crossover.*;
-import com.imogene.GA.fitness.*;
-import com.imogene.GA.fitness.adjustment.FitnessAdjustment;
-import com.imogene.GA.fitness.adjustment.NormalisationAdjustment;
-import com.imogene.GA.generation.GenerationFunction;
-import com.imogene.GA.generation.RandomBitmapGeneration;
-import com.imogene.GA.generation.RandomColorGeneration;
-import com.imogene.GA.mutation.*;
-import com.imogene.GA.selection.RouletteWheelSelection;
-import com.imogene.GA.selection.SelectionFunction;
-import com.imogene.GA.selection.TournamentSelection;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.ImageRW;
+import com.GA.GeneticAlgorithm;
+import com.GA.crossover.*;
+import com.GA.fitness.*;
+import com.GA.mutation.*;
+import com.GA.fitness.adjustment.FitnessAdjustment;
+import com.GA.fitness.adjustment.NormalisationAdjustment;
+import com.GA.generation.GenerationFunction;
+import com.GA.generation.RandomBitmapGeneration;
+import com.GA.generation.RandomColorGeneration;
+import com.GA.selection.RouletteWheelSelection;
+import com.GA.selection.SelectionFunction;
+import com.GA.selection.TournamentSelection;
+import com.utils.BitMapImage;
+import com.utils.ImageRW;
 
 import javax.swing.*;
 import java.awt.*;

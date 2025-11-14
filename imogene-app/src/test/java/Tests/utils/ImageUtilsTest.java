@@ -1,6 +1,6 @@
 package Tests.utils;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.ImageUtils;
+import com.utils.BitMapImage;
+import com.utils.ImageUtils;
 
 import static org.junit.Assert.*;
 public class ImageUtilsTest {
