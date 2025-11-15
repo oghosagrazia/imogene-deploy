@@ -1,8 +1,40 @@
+import { useState, useRef } from 'react';
 import './App.css';
 
 function App() {
-  return (
-  <div className="app"> 
+
+    /* State for canvas dimensions */
+    const [canvasWidth, setCanvasWidth] = useState(400);
+    const [canvasHeight, setCanvasHeight] = useState(400);
+    
+    const [inputWidth, setInputWidth] = useState("400");
+    const [inputHeight, setInputHeight] = useState("400");
+
+    const canvasRef = useRef(null);
+
+    // State for current image
+    const [currentImage, setCurrentImage] = useState(null);
+
+
+    /* Canvas dimensions event change. */
+    const handleApplyCanvasSize = () => {
+    
+    const widthNum = Number(inputWidth);
+    const heightNum = Number(inputHeight);
+
+    // Constraint for invalid or empty input
+    if (isNaN(widthNum) || isNaN(heightNum)) return;
+
+    const safeWidth = Math.min(Math.max(widthNum, 50), 1000);
+    const safeHeight = Math.min(Math.max(heightNum, 50), 1000);
+
+    setCanvasWidth(safeWidth);
+    setCanvasHeight(safeHeight);
+};
+return (
+<div className="app"> 
+
+
   
   {/* Top Navigation Bar */}
   <header className="top-nav">
@@ -70,18 +102,29 @@ function App() {
 
 
 
-      {/* Center Canvas Area */}
+      {/* Canvas Area */}
       <main className="canvas-area">
+
         <div className="canvas-container">
-          <p>Canvas will go here</p>
+          <canvas 
+            ref={canvasRef}
+            width={canvasWidth}
+            height={canvasHeight}
+            className="canvas-image"
+            />
+            {!currentImage && (
+              <div className="canvas-placeholder">
+                <p>Generate an image</p>
+              </div>
+            )}
         </div>
+
+
       </main>
 
 
 
-
-
-      {/* Right Settings Panel */}
+      {/* Right Canvas Settings Panel */}
       <aside className="right-panel">
         {/*Canvas Settings*/}
         <div className="settings-section">
@@ -93,9 +136,10 @@ function App() {
               <input
                 type="number"
                 id="width"
-                defaultValue={133}
+                value={inputWidth}
                 min="50"
                 max="1000"
+                onChange={(e) => setInputWidth((e.target.value))}
               />
             </div>
 
@@ -104,13 +148,17 @@ function App() {
               <input 
                 type="number"
                 id="height"
-                defaultValue={100}
+                value={inputHeight}
                 min="50"
                 max="1000"
+                onChange={(e) => setInputHeight((e.target.value))}
               />
             </div>
+            <button className="ga-bttn" onClick={handleApplyCanvasSize}>Apply</button>
           </div>
         </div>
+
+
 
 
         {/* Genetic Algorithm Settings */}
