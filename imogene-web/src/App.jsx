@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
 
-    /* State for canvas dimensions */
+    /* States for canvas dimensions */
     const [canvasWidth, setCanvasWidth] = useState(400);
     const [canvasHeight, setCanvasHeight] = useState(400);
     
@@ -16,23 +16,31 @@ function App() {
     const [currentImage, setCurrentImage] = useState(null);
 
 
-    /* Canvas dimensions event change. */
+    /* Canvas dimensions change state. */
     const handleApplyCanvasSize = () => {
     
-    const widthNum = Number(inputWidth);
-    const heightNum = Number(inputHeight);
+      const widthNum = Number(inputWidth);
+      const heightNum = Number(inputHeight);
 
-    // Constraint for invalid or empty input
-    if (isNaN(widthNum) || isNaN(heightNum)) return;
+      // Constraint for invalid or empty input
+      if (isNaN(widthNum) || isNaN(heightNum)) return;
 
-    const safeWidth = Math.min(Math.max(widthNum, 50), 1000);
-    const safeHeight = Math.min(Math.max(heightNum, 50), 1000);
+      const safeWidth = Math.min(Math.max(widthNum, 50), 1000);
+      const safeHeight = Math.min(Math.max(heightNum, 50), 1000);
 
-    setCanvasWidth(safeWidth);
-    setCanvasHeight(safeHeight);
-};
-return (
-<div className="app"> 
+      setCanvasWidth(safeWidth);
+      setCanvasHeight(safeHeight);
+    };
+
+    // Generation function selection states:
+    const [generationFunction, setGenerationFunction] = useState("randomPixels")
+    const [fitnessFunction, setFitnessFunction] = useState("checkerBoard")
+    const [selectionFunction, setSelectionFunction] = useState("rouletteWheel")
+    const [crossoverFunction, setCrossoverFunction] = useState("pixelwiseRGB")
+    const [mutationFunction, setMutationFunction] = useState("randomPixelsRandomisation")
+    
+  return (
+  <div className="app"> 
 
 
   
@@ -165,28 +173,106 @@ return (
         <div className="settings-section">
           <h3 className="settings-header">Genetic Algorithm</h3>
           <div className="settings-content">
+
             <div className="form-section">
               <label htmlFor="population">Population Size</label>
               <input
                 type="number"
                 id="population"
-                defaultValue={50}
-                min="10"
-                max="200"
+                defaultValue={1000}
+                min="1"
+                max="1000"
               />
             </div>
 
             <div className="form-section">
-              <label htmlFor="generations">Generations</label>
+              <label htmlFor="elite">Elite</label>
               <input
                 type="number"
                 id="generations"
-                defaultValue={100}
-                min="10"
-                max="1000"
+                defaultValue={30}
+                min="1"
+                max="30"
               />
             </div>
-            <button className="ga-bttn">Run GA</button>
+
+            <div className="form-section">
+              <label htmlFor="re-generation">Re-Generations</label>
+              <input
+                type="number"
+                id="generations"
+                defaultValue={50}
+                min="1"
+                max="50"
+              />
+            </div>
+
+            <div className="form-section">
+              <label htmlFor="generation-function">Generation Function</label>
+              <select
+                id="generation-function"
+                value={generationFunction}
+                onChange={(e) => setGenerationFunction(e.target.value)}
+              >
+                  <option value="randomPixels">Random Pixels</option>
+                  <option value="randomColour">Random Colour</option>
+              </select>
+            </div>
+
+            <div className="form-section">
+              <label htmlFor="fitness-function">Fitness Function</label>
+              <select
+                id="fitness-function"
+                value={fitnessFunction}
+                onChange={(e) => setFitnessFunction(e.target.value)}
+              >
+                  <option value="checkerBoard">Checker Board</option>
+                  <option value="simpleImageLikeness">Simple Image Likeness</option>
+                  <option value="strongImageLikeness">Strong Image Likeness</option>
+                  <option value="hueOnlyImageLikeness">Hue-Only Image Likeness</option>
+                  <option value="lightnessOnlyImageLikeness">Lightness-Only Image Likeness</option>
+              </select>
+            </div>
+
+            <div className="form-section">
+              <label htmlFor="selection-function">Selection Function</label>
+              <select
+                id="selection-function"
+                value={selectionFunction}
+                onChange={(e) => setSelectionFunction(e.target.value)}
+              >
+                  <option value="rouletteWheel">Roulette Wheel</option>
+                  <option value="tournament">Tournament</option>
+              </select>
+            </div>
+
+            <div className="form-section">
+              <label htmlFor="crossover-function">Crossover Function</label>
+               <select
+                id="crossover-function"
+                value={crossoverFunction}
+                onChange={(e) => setCrossoverFunction(e.target.value)}
+              >
+                  <option value="pixelwiseRGB">Pixelwise RGB</option>
+                  <option value="pixelwiseHSL">Pixelwise HSL</option>
+                  <option value="strongPixelwise">Strong Pixelwise</option>
+              </select>
+            </div>
+
+            <div className="form-section">
+              <label htmlFor="mutation-function">Mutation Function</label>
+               <select
+                id="mutation-function"
+                value={mutationFunction}
+                onChange={(e) => setMutationFunction(e.target.value)}
+              >
+                  <option value="randomPixelsRandomisation">Random Pixels Randomisation</option>
+                  <option value="randomPixelsAdjustments">Random Pixels Adjustments</option>
+                  <option value="strongPixelsAdjustments">Strong Pixels Adjustments</option>
+              </select>
+            </div>
+
+            <button className="ga-bttn">Begin GA</button>
           </div>
         </div>
       </aside>

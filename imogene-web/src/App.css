@@ -147,8 +147,6 @@
 
 
 
-
-
 /* Center Canvas Area */
   .canvas-area {
     flex: 1;
@@ -206,6 +204,8 @@
     gap: 12px;
   }
 
+
+
   /* Form section. */
   .form-section {
     display: flex;
@@ -231,6 +231,28 @@
     outline: none;
     border-color: #895abf;
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  }
+
+  .form-section select {
+    width: 100%;
+    padding: 8px 12px;
+    padding-right: 32px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .form-section select:focus {
+    outline: none;
+    border-color: #895abf;
+    box-shadow: 0 0 0 3px rgba(137, 90, 191, 0.1);
+  }
+
+  .form-section select:hover {
+    border-color: #895abf;
   }
 
 
