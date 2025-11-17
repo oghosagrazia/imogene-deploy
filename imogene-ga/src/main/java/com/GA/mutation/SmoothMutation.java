@@ -1,7 +1,7 @@
 package com.GA.mutation;
 
 import com.GA.IndividualImage;
-import com.utils.*;
+import com.utils.ImageUtils;
 
 /**
  * A simple mutation that just applies the smooth filter to the

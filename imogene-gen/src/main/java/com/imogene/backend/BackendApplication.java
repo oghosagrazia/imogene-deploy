@@ -1,4 +1,4 @@
-package com.imogene.backend.backend;
+package com.imogene.backend;
 
 import com.GA.ImageGenerator;
 import com.GA.generation.RandomColorGeneration;

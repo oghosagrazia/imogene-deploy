@@ -1,7 +1,6 @@
 package com.GA.generation;
 
 import com.GA.IndividualImage;
-import com.utils.BitMapImage;
 
 /**
  * Generation functions are used to generate new images. These

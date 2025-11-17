@@ -1,7 +1,5 @@
 package com.application;
 
-
-
 import com.GA.GeneticAlgorithm;
 import com.GA.IndividualImage;
 import com.application.panels.ApplicationWindow;

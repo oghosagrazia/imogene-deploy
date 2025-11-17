@@ -14,6 +14,7 @@
     <modules>
         <module>imogene-gen</module>
         <module>imogene-app</module>
+        <module>imogene-ga</module>
     </modules>
 
     <properties>
