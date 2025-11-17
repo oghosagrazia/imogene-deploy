@@ -3,42 +3,43 @@ import './App.css';
 
 function App() {
 
-    /* States for canvas dimensions */
-    const [canvasWidth, setCanvasWidth] = useState(400);
-    const [canvasHeight, setCanvasHeight] = useState(400);
+  /* States for canvas dimensions */
+  const [canvasWidth, setCanvasWidth] = useState(400);
+  const [canvasHeight, setCanvasHeight] = useState(400);
     
-    const [inputWidth, setInputWidth] = useState("400");
-    const [inputHeight, setInputHeight] = useState("400");
+  const [inputWidth, setInputWidth] = useState("400");
+  const [inputHeight, setInputHeight] = useState("400");
 
-    const canvasRef = useRef(null);
+  const canvasRef = useRef(null);
 
-    // State for current image
-    const [currentImage, setCurrentImage] = useState(null);
+  // State for current image
+  const [currentImage, setCurrentImage] = useState(null);
+
+  // Generation function selection states:
+  const [generationFunction, setGenerationFunction] = useState("randomPixels")
+  const [fitnessFunction, setFitnessFunction] = useState("checkerBoard")
+  const [selectionFunction, setSelectionFunction] = useState("rouletteWheel")
+  const [crossoverFunction, setCrossoverFunction] = useState("pixelwiseRGB")
+  const [mutationFunction, setMutationFunction] = useState("randomPixelsRandomisation")
 
 
-    /* Canvas dimensions change state. */
-    const handleApplyCanvasSize = () => {
-    
-      const widthNum = Number(inputWidth);
-      const heightNum = Number(inputHeight);
+  /* Canvas dimensions change function. */
+  function handleApplyCanvasSize() {
 
-      // Constraint for invalid or empty input
-      if (isNaN(widthNum) || isNaN(heightNum)) return;
+    const widthNum = Number(inputWidth);
+    const heightNum = Number(inputHeight);
 
-      const safeWidth = Math.min(Math.max(widthNum, 50), 1000);
-      const safeHeight = Math.min(Math.max(heightNum, 50), 1000);
+    // Constraint for invalid or empty input
+    if (isNaN(widthNum) || isNaN(heightNum)) return;
 
-      setCanvasWidth(safeWidth);
-      setCanvasHeight(safeHeight);
-    };
+    const safeWidth = Math.min(Math.max(widthNum, 50), 1000);
+    const safeHeight = Math.min(Math.max(heightNum, 50), 1000);
 
-    // Generation function selection states:
-    const [generationFunction, setGenerationFunction] = useState("randomPixels")
-    const [fitnessFunction, setFitnessFunction] = useState("checkerBoard")
-    const [selectionFunction, setSelectionFunction] = useState("rouletteWheel")
-    const [crossoverFunction, setCrossoverFunction] = useState("pixelwiseRGB")
-    const [mutationFunction, setMutationFunction] = useState("randomPixelsRandomisation")
-    
+    setCanvasWidth(safeWidth);
+    setCanvasHeight(safeHeight);
+  }
+
+   
   return (
   <div className="app"> 
 

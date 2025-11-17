@@ -58,6 +58,14 @@ public class BackendApplication {
     static class GenerationHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            // Enables CORS
+            exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+            exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+
+            exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
+
+
             try {
                 if (!"GET".equals(exchange.getRequestMethod())) {
                     exchange.sendResponseHeaders(405, -1); // Method not allowed
