@@ -2,7 +2,7 @@ package Tests.utils;
 
 import com.application.panels.LeftSidebar;
 import com.application.panels.ImageScreen;
-import com.imogene.backend.BackendApplication;
+import com.backend.BackendApplication;
 import com.utils.BitMapImage;
 
 import org.junit.jupiter.api.AfterAll;

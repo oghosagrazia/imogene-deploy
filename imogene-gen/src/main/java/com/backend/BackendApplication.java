@@ -1,4 +1,4 @@
-package com.imogene.backend;
+package com.backend;
 
 import com.GA.ImageGenerator;
 import com.GA.generation.RandomColorGeneration;
@@ -72,10 +72,10 @@ public class BackendApplication {
 
                 BitMapImage image = new BitMapImage(width, height);
 
-                if(type.equalsIgnoreCase("randomBitmap"))
+                if (type.equalsIgnoreCase("randomBitmap"))
                     image = ImageGenerator.randomPixels(height, width);
 
-                if(type.equalsIgnoreCase("randomColour"))
+                if (type.equalsIgnoreCase("randomColour"))
                     image = (new RandomColorGeneration()).generate(height, width).getImage();
 
 
@@ -110,7 +110,7 @@ public class BackendApplication {
                 String type = extractJsonValue(body, "type");
 
                 String imageString = extractJsonValue(body, "image");
-                
+
                 int[][][] rgb = Util.parse3DArray(imageString);
                 BitMapImage image = new BitMapImage(rgb);
 
@@ -119,15 +119,15 @@ public class BackendApplication {
 
                 if(type.equalsIgnoreCase("invert"))
                     image = ImageUtils.invert(image);
-                
+
                 if(type.equalsIgnoreCase("smoothFilterSoft"))
-                	image = ImageUtils.smoothFilter(image, 0.8, 0.025);
-                
+                    image = ImageUtils.smoothFilter(image, 0.8, 0.025);
+
                 if(type.equalsIgnoreCase("smoothFilterMedium"))
-                	image = ImageUtils.smoothFilter(image, 0.5, 0.0625);
-                
+                    image = ImageUtils.smoothFilter(image, 0.5, 0.0625);
+
                 if(type.equalsIgnoreCase("smoothFilterHard"))
-                	image = ImageUtils.smoothFilter(image, 0.2, 0.1);
+                    image = ImageUtils.smoothFilter(image, 0.2, 0.1);
 
                 if(type.equalsIgnoreCase("rebalanceRed"))
                     image = ImageUtils.rgbBalancing(image, 0.6, 0.2, 0.2);
@@ -149,12 +149,12 @@ public class BackendApplication {
 
                 if(type.equalsIgnoreCase("hueOntoSaturation"))
                     image = ImageUtils.spectralProjection(image, "Hue", "Saturation");
-                
+
                 if(type.equalsIgnoreCase("saturationOntoLightness"))
                     image = ImageUtils.spectralProjection(image, "Saturation", "Lightness");
-                
+
                 if(type.equalsIgnoreCase("lightnessOntoHue"))
-                    image = ImageUtils.spectralProjection(image, "Lightness", "Hue");	
+                    image = ImageUtils.spectralProjection(image, "Lightness", "Hue");
 
                 String json = Util.arrayToJson(image.getRgb());
                 exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -181,5 +181,4 @@ public class BackendApplication {
         if (secondQuote == -1) return null;
         return json.substring(firstQuote + 1, secondQuote);
     }
-
 }
