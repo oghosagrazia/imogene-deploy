@@ -151,7 +151,7 @@
   .canvas-area {
     flex: 1;
     background: #fafafa;
-    padding: 24px;
+    padding: 15px;
     overflow: auto;
     display: flex;
     align-items: center;
@@ -160,9 +160,14 @@
 
   .canvas-container {
     background: white;
-    padding: 40px;
-    border-radius: 12px;
+    display: inline-block;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .canvas-image {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: webkit-optimize-contrast;
   }
 
 

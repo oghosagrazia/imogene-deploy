@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class ImageRW {
 
-    // TODO: finish parametrisation, e.g. add upscale factor as parameter
     public static BufferedImage toBufferedImage(BitMapImage image, int scale) {
         int[][][] pixels = image.getRgb();
 

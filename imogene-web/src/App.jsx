@@ -1,19 +1,25 @@
-import { useState, useRef } from 'react';
+
+import { useState, useRef, useEffect } from 'react';
 import './App.css';
 
 function App() {
 
   /* States for canvas dimensions */
-  const [canvasWidth, setCanvasWidth] = useState(400);
-  const [canvasHeight, setCanvasHeight] = useState(400);
+  const [canvasWidth, setCanvasWidth] = useState(200);
+  const [canvasHeight, setCanvasHeight] = useState(200);
     
-  const [inputWidth, setInputWidth] = useState("400");
-  const [inputHeight, setInputHeight] = useState("400");
+  const [inputWidth, setInputWidth] = useState("200");
+  const [inputHeight, setInputHeight] = useState("200");
+  const [upscale, setUpscale] = useState(2); // Default 2x 
 
   const canvasRef = useRef(null);
 
   // State for current image
   const [currentImage, setCurrentImage] = useState(null);
+  const [lastGenerationType, setLastGenerationType] = useState(null);
+
+  // API URL constant  
+  const API_BASE_URL = "http://localhost:8080";
 
   // Generation function selection states:
   const [generationFunction, setGenerationFunction] = useState("randomPixels")
@@ -21,6 +27,14 @@ function App() {
   const [selectionFunction, setSelectionFunction] = useState("rouletteWheel")
   const [crossoverFunction, setCrossoverFunction] = useState("pixelwiseRGB")
   const [mutationFunction, setMutationFunction] = useState("randomPixelsRandomisation")
+
+
+  // Redraws to new upscale - upscale is auto applied.
+    useEffect(() => {
+      if (currentImage) {
+        renderCanvas(currentImage);
+      }
+    }, [upscale]);
 
 
   /* Canvas dimensions change function. */
@@ -37,9 +51,58 @@ function App() {
 
     setCanvasWidth(safeWidth);
     setCanvasHeight(safeHeight);
+
+    // Regenerates last image with new dimensions.
+    if (currentImage && lastGenerationType) {
+      handleGeneration(lastGenerationType, safeWidth, safeHeight);
+    }
   }
 
-   
+  /* Converts backend RGB data to canvas format and renders it. */
+  function renderCanvas(rgbData) {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const canvasDrawing = canvas.getContext('2d');
+    const height = rgbData.length;
+    const width = rgbData[0].length;
+
+    // Upscaled image dimensions
+    canvas.width = width * upscale;
+    canvas.height = height * upscale;
+
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const r = rgbData[y][x][0];
+        const g = rgbData[y][x][1];
+        const b = rgbData[y][x][2];
+
+        canvasDrawing.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        // Draws upscaled pixel block at scaled coordinates
+        canvasDrawing.fillRect(x * upscale, y * upscale, upscale, upscale);
+      }
+    }
+  }
+
+
+  /* Makes a GET request with canvas dimensions and generation type, receives RGB data, and renders it on the canvas. */
+  async function handleGeneration(type, width = canvasWidth, height = canvasHeight) {
+    try {
+      setLastGenerationType(type);
+
+      const response = await fetch(`${API_BASE_URL}/generate?width=${width}&height=${height}&type=${type}`)
+      const rgbData = await response.json();
+
+      // Saves image 
+      setCurrentImage(rgbData);
+      renderCanvas(rgbData);
+    }
+    catch (e) {
+      console.error('Error generating image!', e);
+    }
+  }
+
   return (
   <div className="app"> 
 
@@ -69,8 +132,8 @@ function App() {
       {/* Left Toolbar */}
       <aside className="left-toolbar">
         <h3>GENERATION</h3>
-        <button className="tool-bttn">Generate Random</button>
-        <button className="tool-bttn">Generate Colour</button>
+        <button className="tool-bttn" onClick={() => handleGeneration('randomBitmap')}>Generate Random</button>
+        <button className="tool-bttn" onClick={() => handleGeneration('randomColour')}>Generate Colour</button>
         <button className="tool-bttn clear-bttn">Clear Canvas</button>
      
 
@@ -117,18 +180,11 @@ function App() {
         <div className="canvas-container">
           <canvas 
             ref={canvasRef}
-            width={canvasWidth}
-            height={canvasHeight}
             className="canvas-image"
-            />
-            {!currentImage && (
-              <div className="canvas-placeholder">
-                <p>Generate an image</p>
-              </div>
-            )}
+            width={600}
+            height={600}
+          />
         </div>
-
-
       </main>
 
 
@@ -163,6 +219,19 @@ function App() {
                 onChange={(e) => setInputHeight((e.target.value))}
               />
             </div>
+
+            <div className="form-section">
+                <label htmlFor="upscale">Upscale</label>
+                <input
+                  type="number"
+                  id="upscale"
+                  value={upscale}
+                  min="1"
+                  max="50"
+                  onChange={(e) => setUpscale(Number(e.target.value))}
+                />
+              </div>
+
             <button className="ga-bttn" onClick={handleApplyCanvasSize}>Apply</button>
           </div>
         </div>
