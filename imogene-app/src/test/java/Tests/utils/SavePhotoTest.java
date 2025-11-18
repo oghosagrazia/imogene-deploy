@@ -1,8 +1,8 @@
 package Tests.utils;
 
 import com.application.SavePhoto;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.ImageRW;
+import com.utils.BitMapImage;
+import com.utils.ImageRW;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;

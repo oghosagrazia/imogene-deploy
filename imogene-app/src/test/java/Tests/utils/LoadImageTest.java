@@ -1,7 +1,7 @@
 package Tests.utils;
 
 import com.application.LoadPhoto;
-import com.imogene.utils.BitMapImage;
+import com.utils.BitMapImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

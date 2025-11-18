@@ -1,6 +1,6 @@
 package com.application;
 import com.application.panels.ImageScreen;
-import com.imogene.utils.BitMapImage;
+import com.utils.BitMapImage;
 
 import java.util.ArrayList;
 

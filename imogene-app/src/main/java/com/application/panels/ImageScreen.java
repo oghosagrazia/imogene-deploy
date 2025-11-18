@@ -1,7 +1,7 @@
 package com.application.panels;
 
-import com.imogene.GA.GeneticAlgorithm;
-import com.imogene.utils.BitMapImage;
+import com.GA.GeneticAlgorithm;
+import com.utils.BitMapImage;
 
 import javax.swing.*;
 import java.awt.*;

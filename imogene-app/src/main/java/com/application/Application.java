@@ -1,12 +1,10 @@
 package com.application;
 
-
-
-import com.imogene.GA.GeneticAlgorithm;
-import com.imogene.GA.IndividualImage;
+import com.GA.GeneticAlgorithm;
+import com.GA.IndividualImage;
 import com.application.panels.ApplicationWindow;
 import com.application.panels.ImageScreen;
-import com.imogene.utils.ImageRW;
+import com.utils.ImageRW;
 
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;

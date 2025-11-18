@@ -2,12 +2,12 @@ package com.application.panels;
 
 import com.API.FilterConnector;
 import com.API.GenerationConnector;
-import com.imogene.GA.ImageGenerator;
-import com.imogene.GA.generation.RandomColorGeneration;
+import com.GA.ImageGenerator;
+import com.GA.generation.RandomColorGeneration;
 import com.application.HistoryManager;
 import com.application.LoadPhoto;
-import com.imogene.utils.BitMapImage;
-import com.imogene.utils.ImageUtils;
+import com.utils.BitMapImage;
+import com.utils.ImageUtils;
 import com.application.SavePhoto;
 
 import javax.swing.*;

@@ -1,18 +1,18 @@
 package com.application;
 
-import com.imogene.GA.GeneticAlgorithm;
-import com.imogene.GA.crossover.CrossoverFunction;
-import com.imogene.GA.crossover.PixelwiseRGBCrossover;
-import com.imogene.GA.fitness.CheckerboardFitness;
-import com.imogene.GA.fitness.FitnessFunction;
-import com.imogene.GA.fitness.adjustment.FitnessAdjustment;
-import com.imogene.GA.fitness.adjustment.NoAdjustment;
-import com.imogene.GA.generation.GenerationFunction;
-import com.imogene.GA.generation.RandomBitmapGeneration;
-import com.imogene.GA.mutation.MutationFunction;
-import com.imogene.GA.mutation.RandomPixelsMutation;
-import com.imogene.GA.selection.RouletteWheelSelection;
-import com.imogene.GA.selection.SelectionFunction;
+import com.GA.GeneticAlgorithm;
+import com.GA.crossover.CrossoverFunction;
+import com.GA.crossover.PixelwiseRGBCrossover;
+import com.GA.fitness.CheckerboardFitness;
+import com.GA.fitness.FitnessFunction;
+import com.GA.fitness.adjustment.FitnessAdjustment;
+import com.GA.fitness.adjustment.NoAdjustment;
+import com.GA.generation.GenerationFunction;
+import com.GA.generation.RandomBitmapGeneration;
+import com.GA.mutation.MutationFunction;
+import com.GA.mutation.RandomPixelsMutation;
+import com.GA.selection.RouletteWheelSelection;
+import com.GA.selection.SelectionFunction;
 import com.application.panels.ImageScreen;
 
 /**

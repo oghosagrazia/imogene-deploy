@@ -3,14 +3,12 @@ package Tests.utils;
 import com.application.panels.LeftSidebar;
 import com.application.panels.ImageScreen;
 import com.backend.BackendApplication;
-import com.imogene.utils.BitMapImage;
+import com.utils.BitMapImage;
 
-import static org.junit.jupiter.api.Assertions.*; 
-import org.junit.jupiter.api.AfterAll;  
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach; 
 import org.junit.jupiter.api.BeforeEach; 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -55,7 +53,7 @@ public class RemoteAPITest {
 	}
 	
 	@AfterAll
-	public void tearDownLast() {
+	public static void tearDownLast() {
 		if (httpServer != null) {
 			try {
 				httpServer.stop(0);
