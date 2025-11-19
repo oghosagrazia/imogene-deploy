@@ -1,6 +1,7 @@
 package com.application.panels;
 
 import com.application.Application;
+import com.application.GANavigation;
 import com.utils.BitMapImage;
 import com.utils.ImageUtils;
 
@@ -16,6 +17,8 @@ public class GAGenerationsPanel extends JPanel {
     public static int currentGenerationNumber;
     public static String status;
     public static JLabel statusLabel;
+    // new buttons
+    public static JLabel generationLabel;
 
     // Singleton pattern
     private static final GAGenerationsPanel instance = new GAGenerationsPanel();
@@ -33,6 +36,18 @@ public class GAGenerationsPanel extends JPanel {
         JButton btnReset = new JButton("Reset");
         JButton btnApplySmoothing = new JButton("Apply Smoothing");
         JButton btnSaveAsGif = new JButton("Save as GIF");
+
+        GANavigation gaNavigation = new GANavigation();
+
+        // Added Buttons
+        JButton nextGeneration = new JButton("Next Generation");
+        JButton prevGeneration = new JButton("Previous Generation");
+        nextGeneration.setEnabled(false);
+        prevGeneration.setEnabled(false);
+        JTextField txtGenJump = new JTextField();
+        txtGenJump.setMaximumSize(new Dimension(120, txtGenJump.getPreferredSize().height));
+        JButton btnGenJump =  new JButton("Go To Generation");
+
         btnRun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +74,10 @@ public class GAGenerationsPanel extends JPanel {
                         updateStatusString();
                         ImageScreen.currentGA.gaStep();
                         if(ImageScreen.halt) break;
+
+                        // add generation to arrayList
+                        gaNavigation.addGeneration(ImageScreen.currentGA.best.getLast().getImage());
+
                         //System.out.println("Step");
                         SwingUtilities.invokeLater(() -> {
                             ImageScreen.currentImage = ImageScreen.currentGA.best.getLast().getImage();
@@ -70,8 +89,11 @@ public class GAGenerationsPanel extends JPanel {
                     btnHalt.setEnabled(false);
                     btnReset.setEnabled(true);
                     btnApplySmoothing.setEnabled(true);
+                    nextGeneration.setEnabled(true);
+                    prevGeneration.setEnabled(true);
                     status = "Finished";
                     updateStatusString();
+                    generationLabel.setText("Viewing Generation: " + currentGenerationNumber);
                     //ga.finished = true; // TODO: no longer needed
                 }).start();
             }
@@ -95,6 +117,8 @@ public class GAGenerationsPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Calls helper method to display the correct card on the RightSidebar's child panel
                 RightSidebar.showCard( "GA Params");
+                gaNavigation.clearGenerations();
+                generationLabel.setText("Viewing Generation: -");
             }
         });
 
@@ -122,7 +146,46 @@ public class GAGenerationsPanel extends JPanel {
             }
         });
 
+        nextGeneration.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageScreen.currentImage = gaNavigation.nextGeneration();
+                int currentGenerationNumber = gaNavigation.getCurrentGenerationIndex() + 1;
+                generationLabel.setText("Viewing Generation: " + currentGenerationNumber);
+                ImageScreen.redraw();
+            }
+        });
+
+        prevGeneration.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageScreen.currentImage = gaNavigation.previousGeneration();
+                int currentGenerationNumber = gaNavigation.getCurrentGenerationIndex() + 1;
+                generationLabel.setText("Viewing Generation: " + currentGenerationNumber);
+                ImageScreen.redraw();
+            }
+        });
+
+        btnGenJump.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int targetGeneration = Integer.parseInt(txtGenJump.getText());
+                int index = targetGeneration - 1;
+                BitMapImage jumpedImage = gaNavigation.getGenerationIndex(index);
+                if(jumpedImage == null){
+                    JOptionPane.showMessageDialog(null, "Invalid Generation Number.");
+                } else {
+                    ImageScreen.currentImage = jumpedImage;
+                    generationLabel.setText("Viewing Generation: " + targetGeneration);
+                    gaNavigation.setCurrentGenerationIndex(index);
+                    ImageScreen.redraw();
+                }
+            }
+        });
+
         statusLabel = new JLabel("GA has been initialised");
+        // added button
+        generationLabel = new JLabel("Viewing Generation: -");
 
         add(lblGenerations);
         add(txtGenerations);
@@ -131,7 +194,15 @@ public class GAGenerationsPanel extends JPanel {
         add(btnReset);
         add(btnApplySmoothing);
         add(btnSaveAsGif);
+
+        // New buttons
+        add(generationLabel);
+        add(nextGeneration);
+        add(prevGeneration);
+        add(txtGenJump);
+        add(btnGenJump);
         add(statusLabel);
+
 
 
         lblGenerations.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -142,6 +213,12 @@ public class GAGenerationsPanel extends JPanel {
         statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnReset.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSaveAsGif.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // new buttons
+        nextGeneration.setAlignmentX(Component.CENTER_ALIGNMENT);
+        prevGeneration.setAlignmentX(Component.CENTER_ALIGNMENT);
+        generationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        txtGenJump.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnGenJump.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         lblGenerations.setMaximumSize(new Dimension(Integer.MAX_VALUE, lblGenerations.getPreferredSize().height));
         txtGenerations.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtGenerations.getPreferredSize().height));
@@ -151,6 +228,10 @@ public class GAGenerationsPanel extends JPanel {
         statusLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, statusLabel.getPreferredSize().height));
         btnReset.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnReset.getPreferredSize().height));
         btnSaveAsGif.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnSaveAsGif.getPreferredSize().height));
+        // new buttons
+        nextGeneration.setMaximumSize(new Dimension(Integer.MAX_VALUE, nextGeneration.getPreferredSize().height));
+        prevGeneration.setMaximumSize(new Dimension(Integer.MAX_VALUE, prevGeneration.getPreferredSize().height));
+        generationLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, generationLabel.getPreferredSize().height));
     }
 
     public static void updateStatusString() {

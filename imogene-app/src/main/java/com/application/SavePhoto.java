@@ -4,9 +4,7 @@ import com.utils.ImageRW;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class SavePhoto {
 
