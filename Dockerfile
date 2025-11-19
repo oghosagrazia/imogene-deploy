@@ -6,8 +6,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN mvn clean package -DskipTests
+RUN mvn clean install -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-cp", "imogene-gen/target/imogene-gen-1.0-SNAPSHOT.jar:imogene-ga/target/imogene-ga-1.0-SNAPSHOT.jar:imogene-app/target/imogene-app-1.0-SNAPSHOT.jar", "com.backend.BackendApplication"]
+CMD ["mvn", "-pl", "imogene-gen", "exec:java", "-Dexec.mainClass=com.backend.BackendApplication"]
