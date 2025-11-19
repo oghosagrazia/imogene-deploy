@@ -1,13 +1,13 @@
 FROM eclipse-temurin:21-jdk-alpine
 
-RUN apk add --no-cache git make
+RUN apk add --no-cache maven
 
 WORKDIR /app
 
-RUN git clone https://github.com/SergeyOvchinnik/Imogene.git
+COPY . .
 
-WORKDIR /app/Imogene
+RUN mvn clean package -DskipTests
 
 EXPOSE 8080
 
-ENTRYPOINT ["make", "backend"]
+CMD ["java", "-cp", "imogene-gen/target/imogene-gen-1.0-SNAPSHOT.jar:imogene-ga/target/imogene-ga-1.0-SNAPSHOT.jar:imogene-app/target/imogene-app-1.0-SNAPSHOT.jar", "com.backend.BackendApplication"]
