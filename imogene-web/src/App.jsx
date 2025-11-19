@@ -4,13 +4,25 @@ import './App.css';
 
 function App() {
 
+  /* Theme state - defaults to light, checks localStorage, or system preference */
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+
+    // Check system preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  });
+
   /* States for canvas dimensions */
   const [canvasWidth, setCanvasWidth] = useState(200);
   const [canvasHeight, setCanvasHeight] = useState(200);
-    
+
   const [inputWidth, setInputWidth] = useState("200");
   const [inputHeight, setInputHeight] = useState("200");
-  const [upscale, setUpscale] = useState(2); // Default 2x 
+  const [upscale, setUpscale] = useState(2); // Default 2x
 
   const canvasRef = useRef(null);
 
@@ -18,7 +30,7 @@ function App() {
   const [currentImage, setCurrentImage] = useState(null);
   const [lastGenerationType, setLastGenerationType] = useState(null);
 
-  // API URL constant  
+  // API URL constant
   const API_BASE_URL = "http://localhost:8080";
 
   // Generation function selection states:
@@ -29,12 +41,23 @@ function App() {
   const [mutationFunction, setMutationFunction] = useState("randomPixelsRandomisation")
 
 
+  // Apply theme to document and save to localStorage
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
   // Redraws to new upscale - upscale is auto applied.
-    useEffect(() => {
-      if (currentImage) {
-        renderCanvas(currentImage);
-      }
-    }, [upscale]);
+  useEffect(() => {
+    if (currentImage) {
+      renderCanvas(currentImage);
+    }
+  }, [upscale]);
+
+  /* Toggle between light and dark theme */
+  function toggleTheme() {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  }
 
 
   /* Canvas dimensions change function. */
@@ -114,9 +137,10 @@ function App() {
       <img src="/imogene-logo.svg" alt="Imogene Logo" className="company-icon" />
     </div>
 
-
-
     <div className="quick-actions">
+      <button className="action-bttn" onClick={toggleTheme}>
+        {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+      </button>
       <button className="action-bttn">Undo</button>
       <button className="action-bttn">Redo</button>
       <button className="action-bttn save-action-bttn">Save</button>
