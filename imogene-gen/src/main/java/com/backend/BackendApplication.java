@@ -21,7 +21,8 @@ public class BackendApplication {
 
     public static void main(String[] args) throws IOException {
         int portNumber = 8080;
-        HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), 0);
+        // Accept other external connections (Render) 
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", portNumber), 0);
 
         // Assign handlers to endpoints
         server.createContext("/", new RootHandler());
