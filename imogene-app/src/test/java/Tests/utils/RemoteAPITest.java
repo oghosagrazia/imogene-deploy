@@ -25,7 +25,7 @@ public class RemoteAPITest {
 		httpServerThread = new Thread(() -> {
 			try {
 				BackendApplication.main(new String[] {});
-			} catch (IOException e) {
+			} catch (IOException | InterruptedException e) {
 				System.out.println("Server is already running");
 			}
 		});
