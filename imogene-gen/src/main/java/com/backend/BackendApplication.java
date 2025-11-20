@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 public class BackendApplication {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         int portNumber = 8080;
         // Accept other external connections (Render) 
         HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", portNumber), 0);
@@ -33,6 +33,9 @@ public class BackendApplication {
         server.start();
 
         System.out.println("Server started on http://localhost:" + portNumber);
+
+        // Keep the main thread alive so the server continues running
+        Thread.currentThread().join();
     }
 
     static class RootHandler implements HttpHandler {
